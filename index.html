@@ -478,18 +478,25 @@
         // 2. Mobil Menü Aç/Kapa
         function toggleMobileMenu() {
             const menu = document.getElementById('mobile-menu');
-            if(menu.classList.contains('hidden')) {
+            if (menu.classList.contains('hidden')) {
                 menu.classList.remove('hidden');
             } else {
                 menu.classList.add('hidden');
             }
         }
 
-        // 3. SSS (FAQ) Aç/Kapa
+        // 3. Mobil menüde linke basınca menüyü kapat
+        document.querySelectorAll('.mobile-link').forEach(link => {
+            link.addEventListener('click', () => {
+                document.getElementById('mobile-menu').classList.add('hidden');
+            });
+        });
+
+        // 4. SSS (FAQ) Aç/Kapa
         function toggleFaq(button) {
             const content = button.nextElementSibling;
             const icon = button.querySelector('i');
-            
+
             if (content.classList.contains('hidden')) {
                 content.classList.remove('hidden');
                 icon.style.transform = 'rotate(180deg)';
@@ -499,29 +506,336 @@
             }
         }
 
-        // 4. Dil Değiştirme Mantığı
-        function setLanguage(lang) {
-            // İleride çevirilerini hazırladığında bu fonksiyonu aktif kullanabilirsin.
-            // Şimdilik LocalStorage'a yazıyor ve dropdown'ı güncelliyor.
-            localStorage.setItem('enjoypadel_lang', lang);
-            
-            const selectBox = document.getElementById('language-select');
-            if(selectBox) {
-                selectBox.value = lang;
+        // 5. Çeviri Sözlüğü
+        const translations = {
+            "en": {
+                        "enjoypadel | Padel & Tenis File İçi Telefon Kayıt Aparatı": "enjoypadel | Padel & Tennis Net Phone Recording Mount",
+                        "Padel ve tenis maçlarınızı kolayca kaydedin! Can Ertuğrul & Can Özdoğan ortaklığında geliştirilen enjoypadel 3D baskı PETG dayanıklı, fileye takılan telefon tutucu.": "Record your padel and tennis matches easily! enjoypadel is a durable 3D-printed PETG phone holder for court nets, developed by Can Ertuğrul & Can Özdoğan.",
+                        "by Ertuğrul & Özdoğan": "by Ertuğrul & Özdoğan",
+                        "Ürün": "Product",
+                        "Özellikler": "Features",
+                        "Kulüpler İçin": "For Clubs",
+                        "Fiyat": "Pricing",
+                        "SSS": "FAQ",
+                        "Sipariş Ver": "Order Now",
+                        "WhatsApp Sipariş": "WhatsApp Order",
+                        "Can Ertuğrul & Can Özdoğan İmzalı Premium Donanım": "Premium Gear by Can Ertuğrul & Can Özdoğan",
+                        "Padel maçlarını": "Record your padel matches",
+                        "kusursuz açıyla kaydet.": "from the perfect angle.",
+                        "Kort filesine saniyeler içinde kenetlenen yeni nesil kompakt telefon tutucu. Tripod taşıma derdine son verin, profesyonel ralli videoları çekin.": "A next-generation compact phone holder that locks onto the court net in seconds. Stop carrying tripods and capture professional rally videos.",
+                        "WhatsApp'tan Sipariş Ver": "Order on WhatsApp",
+                        "Kulüpler İçin Teklif Al": "Get an Offer for Clubs",
+                        "PETG Endüstriyel Gövde": "Industrial PETG Body",
+                        "Sarsıntısız Sıkı Tutuş": "Stable Strong Grip",
+                        "Padel & Tenis Uyumlu": "Padel & Tennis Compatible",
+                        "Hafif Taşınabilir Yapı": "Lightweight Portable Design",
+                        "3D ÜRÜN GÖRSELİ": "3D PRODUCT VISUAL",
+                        "Görseller hazır olduğunda sistemdeki /public/product-1.png yolu buraya bağlanacaktır.": "When the visuals are ready, the /public/product-1.png path will be connected here.",
+                        "Premium Sürüm v1.2": "Premium Version v1.2",
+                        "Korttaki Zorluklar": "Court Problems",
+                        "Telefonu sabitlemek dert olmasın.": "Mounting your phone should not be a problem.",
+                        "ZORLUK 01": "PROBLEM 01",
+                        "Maç Kaydetmek Zor": "Recording Matches Is Hard",
+                        "File üzerine dengesizce bırakılan telefonlar sürekli düşer, doğru açıyı yakalamak dakikalarınızı alır.": "Phones placed unsteadily on the net keep falling, and finding the right angle takes minutes.",
+                        "ZORLUK 02": "PROBLEM 02",
+                        "Büyük Tripod Yükü": "Bulky Tripod Problem",
+                        "Kocaman tripodları çantada taşımak yük oluşturur. Çoğu kulüp kort içine büyük tripod alınmasına izin vermez.": "Carrying large tripods is annoying. Many clubs do not allow big tripods inside the court.",
+                        "ZORLUK 03": "PROBLEM 03",
+                        "Telefon Hasar Riski": "Risk of Phone Damage",
+                        "Yere veya tel aralarına sıkıştırılan pahalı akıllı telefonlar, sert bir top darbesiyle kırılabilir.": "Expensive smartphones placed on the ground or between wires can break after a hard ball impact.",
+                        "MÜKEMMEL ÇÖZÜM": "THE PERFECT SOLUTION",
+                        ", akıllı telefonunuzu kortta güvenli ve kusursuz açıyla doğrudan fileye odaklar.": " securely positions your smartphone on the court net at the perfect angle.",
+                        "Mühendislik": "Engineering",
+                        "Teknik ve Tasarım Özellikleri": "Technical & Design Features",
+                        "Anında Kurulum": "Instant Setup",
+                        "Vida veya aparat gerektirmeden, patentli geçme yapısıyla direkt olarak file bandına oturur.": "Fits directly onto the net band with no screws or extra equipment needed.",
+                        "Sıfır Sarsıntı": "Zero Shake",
+                        "En sert smaçlarda veya rüzgarlı açık hava kortlarında bile sarsıntı yapmaz, kaydı pürüzsüz tutar.": "Keeps the recording smooth even during hard smashes or windy outdoor conditions.",
+                        "Gelişmiş PETG Yapı": "Advanced PETG Structure",
+                        "Can Ertuğrul & Can Özdoğan tarafından seçilen endüstriyel PETG filament, ısıya ve darbelere tam dirençlidir.": "Industrial PETG filament selected by Can Ertuğrul & Can Özdoğan offers strong heat and impact resistance.",
+                        "Cepte Taşınabilir": "Pocket Portable",
+                        "Hafif ve ultra kompakt geometrisi sayesinde cebinizde ya da raket çantanızda yer kaplamaz.": "Its lightweight, ultra-compact shape fits easily in your pocket or racket bag.",
+                        "Sosyal Medya Formatı": "Social Media Ready",
+                        "Instagram Reels, YouTube Shorts ve TikTok için tam kortu içine alan harika geniş açılar sunar.": "Offers wide angles that capture the full court for Instagram Reels, YouTube Shorts, and TikTok.",
+                        "Kulüplere Özel Özelleştirme": "Custom Club Branding",
+                        "B2B toplu siparişlerde kulübünüzün kurumsal kimliğine özel logo kabartması doğrudan gövdeye işlenir.": "For B2B bulk orders, your club logo can be embossed directly onto the product body.",
+                        "Ürün Modelleri": "Product Models",
+                        "Basic Model": "Basic Model",
+                        "Geniş açı kort çekimleri için optimize edilmiş, standart sabit açılı ana modelimiz.": "Our main fixed-angle model, optimized for wide-angle court recordings.",
+                        "• Sabit Geniş Açılı Ergonomi": "• Fixed wide-angle design",
+                        "• %100 Yüksek Dayanımlı PETG Siyah Gövde": "• 100% high-durability PETG black body",
+                        "İncele": "View Details",
+                        "EN ÇOK SATAN": "BEST SELLER",
+                        "Pro Adjustable": "Pro Adjustable",
+                        "Açı ayarlamaları yapmanıza izin veren, mekanizmalı ve vidalı profesyonel sürüm.": "A professional version with a screw mechanism that allows angle adjustments.",
+                        "• Yukarı/Aşağı İnce Açı Ayarı": "• Fine up/down angle adjustment",
+                        "• Güvenli Sıkıştırma Vidası Modülü": "• Secure tightening screw module",
+                        "Club Edition": "Club Edition",
+                        "Kulüpler için üretilen, gövde üzerinde kurumsal logonuzu barındıran prestij paketi.": "A premium club package featuring your official logo on the product body.",
+                        "• Özel Kabartmalı Kulüp Logosu": "• Custom embossed club logo",
+                        "• B2B Toplu Sipariş Avantajları": "• B2B bulk order advantages",
+                        "Teklif Al": "Get Offer",
+                        "B2B Kurumsal İş Ortaklığı": "B2B Club Partnership",
+                        "Padel kulübünüz için markalı özel üretim.": "Custom branded production for your padel club.",
+                        "Kulübünüzün logosu ile özel üretim sağlıyoruz. Üyeleriniz maçlarını kaydederken ve sosyal medyada paylaşırken kulübünüzün kurumsal markası sürekli ön planda kalır.": "We offer custom production with your club logo. When your members record and share their matches, your club brand stays visible.",
+                        "• Özel kabartma logo entegrasyonu": "• Custom embossed logo integration",
+                        "• Toplu üretim ve fiyat koruması": "• Bulk production and price protection",
+                        "• Turnuvalar için harika hediye alternatifi": "• Great gift option for tournaments",
+                        "• Yüksek sosyal medya marka görünürlüğü": "• Strong social media brand visibility",
+                        "Kulübüm İçin Teklif Al": "Get an Offer for My Club",
+                        "KULÜP LOGO ALANI": "CLUB LOGO AREA",
+                        "Sosyal medyada organik ve viral reklam gücü": "Organic and viral advertising power on social media",
+                        "Lansman Fiyatları": "Launch Prices",
+                        "Şeffaf ve Net Fiyatlandırma": "Clear and Transparent Pricing",
+                        "Basic": "Basic",
+                        "Standart sabit açı desteği, yüksek mukavemetli endüstriyel PETG gövde.": "Standard fixed-angle support with a high-strength industrial PETG body.",
+                        "İnce dikey açı ayarlama mekanizması ve ekstra sarsıntı önleyici özel tırnaklar.": "Fine vertical angle adjustment mechanism with extra anti-shake grip tabs.",
+                        "Ön Sipariş Ver": "Pre-Order",
+                        "Kulüplere özel kabartmalı logo tasarımı ve toplu alımlara özel iskontolu fiyatlar.": "Custom embossed logo design for clubs and discounted pricing for bulk orders.",
+                        "Kolay Kurulum": "Easy Setup",
+                        "3 Adımda Kayda Başla": "Start Recording in 3 Steps",
+                        "Aparatı Fileye Oturt": "Place the Mount on the Net",
+                        "Özel tırnaklı yapıyı kort filesinin üst bandına tek hamlede bırakın.": "Place the special grip structure onto the top band of the court net in one move.",
+                        "Telefonu Yerleştir": "Insert Your Phone",
+                        "Telefonunuzu dikey veya yatay olarak güvenli sıkıştırma alanına sabitleyin.": "Secure your phone vertically or horizontally inside the grip area.",
+                        "Kaydı Başlat": "Start Recording",
+                        "Kameranızı geniş açı moduna getirin ve benzersiz ralli analizleri üretin.": "Switch your camera to wide-angle mode and create unique rally analysis videos.",
+                        "Oyuncu Deneyimleri": "Player Experiences",
+                        "\"Her antrenmanı ve maçı kayıt altına alıyorum. Açı tam olarak tüm kortu kusursuz görüyor. Can ve ekibine teşekkürler.\"": "\"I record every training session and match. The angle captures the entire court perfectly. Thanks to Can and his team.\"",
+                        "Padel Oyuncusu": "Padel Player",
+                        "\"Tripod taşımaktan kurtuldum. Çantamın küçük gözüne atıyorum, maça girerken saniyeler içinde takıp kayda basıyorum.\"": "\"I no longer carry a tripod. I put it in the small pocket of my bag and start recording in seconds.\"",
+                        "Tenis Antrenörü": "Tennis Coach",
+                        "\"Kulübümüz için Club Edition modelini sipariş ettik. Üyeler video paylaştıkça kulübümüzün logosu öne çıkıyor, müthiş pazarlama!\"": "\"We ordered the Club Edition for our club. As members share videos, our logo gets visibility. Amazing marketing!\"",
+                        "Kulüp İşletmecisi": "Club Owner",
+                        "Sıkça Sorulan Sorular": "Frequently Asked Questions",
+                        "Hangi telefonlarla uyumludur?": "Which phones is it compatible with?",
+                        "Piyasadaki iOS ve Android tabanlı akıllı telefonların %99'u ile uyumludur. Genişlik ayarı sağlayan özel sıkıştırma yapısı sayesinde telefonunuzu kılıfıyla bile kullanabilirsiniz.": "It is compatible with 99% of iOS and Android smartphones on the market. Thanks to its adjustable grip structure, you can even use your phone with a case.",
+                        "Sadece Padel için mi uygun?": "Is it only suitable for padel?",
+                        "Hayır. Tasarımımız hem padel hem de standart tenis kortlarındaki file bantlarıyla birebir uyumlu çalışmaktadır.": "No. Our design works perfectly with both padel nets and standard tennis court net bands.",
+                        "Kort filesine takılan yenilikçi telefon tutucu ile maçlarınızı profesyonel açıyla kaydedin.": "Record your matches from a professional angle with the innovative phone holder that attaches to the court net.",
+                        "© 2024 enjoypadel. Tüm hakları saklıdır. Can Ertuğrul & Can Özdoğan tarafından tasarlanmıştır.": "© 2024 enjoypadel. All rights reserved. Designed by Can Ertuğrul & Can Özdoğan."
+            },
+            "de": {
+                        "enjoypadel | Padel & Tenis File İçi Telefon Kayıt Aparatı": "enjoypadel | Padel & Tennis Netz-Handyhalter zur Aufnahme",
+                        "Padel ve tenis maçlarınızı kolayca kaydedin! Can Ertuğrul & Can Özdoğan ortaklığında geliştirilen enjoypadel 3D baskı PETG dayanıklı, fileye takılan telefon tutucu.": "Nimm deine Padel- und Tennisspiele ganz einfach auf! enjoypadel ist ein robuster 3D-gedruckter PETG-Handyhalter für Netze, entwickelt von Can Ertuğrul & Can Özdoğan.",
+                        "by Ertuğrul & Özdoğan": "by Ertuğrul & Özdoğan",
+                        "Ürün": "Produkt",
+                        "Özellikler": "Funktionen",
+                        "Kulüpler İçin": "Für Clubs",
+                        "Fiyat": "Preise",
+                        "SSS": "FAQ",
+                        "Sipariş Ver": "Bestellen",
+                        "WhatsApp Sipariş": "WhatsApp Bestellung",
+                        "Can Ertuğrul & Can Özdoğan İmzalı Premium Donanım": "Premium-Ausrüstung von Can Ertuğrul & Can Özdoğan",
+                        "Padel maçlarını": "Nimm deine Padel-Matches",
+                        "kusursuz açıyla kaydet.": "aus dem perfekten Winkel auf.",
+                        "Kort filesine saniyeler içinde kenetlenen yeni nesil kompakt telefon tutucu. Tripod taşıma derdine son verin, profesyonel ralli videoları çekin.": "Ein kompakter Handyhalter der nächsten Generation, der sich in Sekunden am Netz befestigt. Kein Stativ mehr, nur professionelle Rallye-Videos.",
+                        "WhatsApp'tan Sipariş Ver": "Über WhatsApp bestellen",
+                        "Kulüpler İçin Teklif Al": "Club-Angebot anfragen",
+                        "PETG Endüstriyel Gövde": "Industrieller PETG-Körper",
+                        "Sarsıntısız Sıkı Tutuş": "Stabiler fester Halt",
+                        "Padel & Tenis Uyumlu": "Padel & Tennis kompatibel",
+                        "Hafif Taşınabilir Yapı": "Leichtes tragbares Design",
+                        "3D ÜRÜN GÖRSELİ": "3D PRODUKTVISUALISIERUNG",
+                        "Görseller hazır olduğunda sistemdeki /public/product-1.png yolu buraya bağlanacaktır.": "Sobald die Bilder fertig sind, wird der Pfad /public/product-1.png hier eingebunden.",
+                        "Premium Sürüm v1.2": "Premium Version v1.2",
+                        "Korttaki Zorluklar": "Probleme auf dem Court",
+                        "Telefonu sabitlemek dert olmasın.": "Das Befestigen deines Handys sollte kein Problem sein.",
+                        "ZORLUK 01": "PROBLEM 01",
+                        "Maç Kaydetmek Zor": "Matches aufzunehmen ist schwer",
+                        "File üzerine dengesizce bırakılan telefonlar sürekli düşer, doğru açıyı yakalamak dakikalarınızı alır.": "Ungesichert auf dem Netz platzierte Handys fallen ständig herunter, und der richtige Winkel kostet Zeit.",
+                        "ZORLUK 02": "PROBLEM 02",
+                        "Büyük Tripod Yükü": "Sperrige Stative",
+                        "Kocaman tripodları çantada taşımak yük oluşturur. Çoğu kulüp kort içine büyük tripod alınmasına izin vermez.": "Große Stative mitzunehmen ist mühsam. Viele Clubs erlauben keine großen Stative auf dem Court.",
+                        "ZORLUK 03": "PROBLEM 03",
+                        "Telefon Hasar Riski": "Risiko für Handyschäden",
+                        "Yere veya tel aralarına sıkıştırılan pahalı akıllı telefonlar, sert bir top darbesiyle kırılabilir.": "Teure Smartphones auf dem Boden oder zwischen Gittern können durch harte Balltreffer beschädigt werden.",
+                        "MÜKEMMEL ÇÖZÜM": "DIE PERFEKTE LÖSUNG",
+                        ", akıllı telefonunuzu kortta güvenli ve kusursuz açıyla doğrudan fileye odaklar.": " positioniert dein Smartphone sicher und im perfekten Winkel direkt am Netz.",
+                        "Mühendislik": "Engineering",
+                        "Teknik ve Tasarım Özellikleri": "Technische & Design-Funktionen",
+                        "Anında Kurulum": "Sofortige Montage",
+                        "Vida veya aparat gerektirmeden, patentli geçme yapısıyla direkt olarak file bandına oturur.": "Sitzt direkt auf dem Netzband, ohne Schrauben oder zusätzliches Zubehör.",
+                        "Sıfır Sarsıntı": "Keine Verwacklung",
+                        "En sert smaçlarda veya rüzgarlı açık hava kortlarında bile sarsıntı yapmaz, kaydı pürüzsüz tutar.": "Hält die Aufnahme auch bei harten Smashes oder Wind stabil und ruhig.",
+                        "Gelişmiş PETG Yapı": "Fortschrittliche PETG-Struktur",
+                        "Can Ertuğrul & Can Özdoğan tarafından seçilen endüstriyel PETG filament, ısıya ve darbelere tam dirençlidir.": "Das von Can Ertuğrul & Can Özdoğan ausgewählte industrielle PETG-Filament ist hitze- und stoßbeständig.",
+                        "Cepte Taşınabilir": "Passt in die Tasche",
+                        "Hafif ve ultra kompakt geometrisi sayesinde cebinizde ya da raket çantanızda yer kaplamaz.": "Dank der leichten und kompakten Form passt es problemlos in deine Tasche oder Racket-Bag.",
+                        "Sosyal Medya Formatı": "Für Social Media bereit",
+                        "Instagram Reels, YouTube Shorts ve TikTok için tam kortu içine alan harika geniş açılar sunar.": "Bietet starke Weitwinkelaufnahmen des gesamten Courts für Instagram Reels, YouTube Shorts und TikTok.",
+                        "Kulüplere Özel Özelleştirme": "Club-Branding",
+                        "B2B toplu siparişlerde kulübünüzün kurumsal kimliğine özel logo kabartması doğrudan gövdeye işlenir.": "Bei B2B-Großbestellungen kann das Clublogo direkt auf den Körper geprägt werden.",
+                        "Ürün Modelleri": "Produktmodelle",
+                        "Basic Model": "Basic Model",
+                        "Geniş açı kort çekimleri için optimize edilmiş, standart sabit açılı ana modelimiz.": "Unser festes Standardmodell, optimiert für Weitwinkelaufnahmen des Courts.",
+                        "• Sabit Geniş Açılı Ergonomi": "• Feste Weitwinkel-Ergonomie",
+                        "• %100 Yüksek Dayanımlı PETG Siyah Gövde": "• 100% robuster schwarzer PETG-Körper",
+                        "İncele": "Ansehen",
+                        "EN ÇOK SATAN": "BESTSELLER",
+                        "Pro Adjustable": "Pro Adjustable",
+                        "Açı ayarlamaları yapmanıza izin veren, mekanizmalı ve vidalı profesyonel sürüm.": "Die professionelle Version mit Schraubmechanismus zur Winkelanpassung.",
+                        "• Yukarı/Aşağı İnce Açı Ayarı": "• Feine Auf-/Ab-Winkelverstellung",
+                        "• Güvenli Sıkıştırma Vidası Modülü": "• Sicheres Schraub-Klemmmodul",
+                        "Club Edition": "Club Edition",
+                        "Kulüpler için üretilen, gövde üzerinde kurumsal logonuzu barındıran prestij paketi.": "Das Prestige-Paket für Clubs mit dem offiziellen Logo auf dem Produktkörper.",
+                        "• Özel Kabartmalı Kulüp Logosu": "• Individuell geprägtes Clublogo",
+                        "• B2B Toplu Sipariş Avantajları": "• Vorteile für B2B-Großbestellungen",
+                        "Teklif Al": "Angebot anfragen",
+                        "B2B Kurumsal İş Ortaklığı": "B2B Club-Partnerschaft",
+                        "Padel kulübünüz için markalı özel üretim.": "Individuelle Markenproduktion für deinen Padel-Club.",
+                        "Kulübünüzün logosu ile özel üretim sağlıyoruz. Üyeleriniz maçlarını kaydederken ve sosyal medyada paylaşırken kulübünüzün kurumsal markası sürekli ön planda kalır.": "Wir produzieren individuell mit deinem Clublogo. Wenn Mitglieder ihre Matches aufnehmen und teilen, bleibt deine Marke sichtbar.",
+                        "• Özel kabartma logo entegrasyonu": "• Individuelle Logo-Prägung",
+                        "• Toplu üretim ve fiyat koruması": "• Serienproduktion und Preisschutz",
+                        "• Turnuvalar için harika hediye alternatifi": "• Starkes Geschenk für Turniere",
+                        "• Yüksek sosyal medya marka görünürlüğü": "• Hohe Sichtbarkeit in Social Media",
+                        "Kulübüm İçin Teklif Al": "Angebot für meinen Club anfragen",
+                        "KULÜP LOGO ALANI": "CLUBLOGO-BEREICH",
+                        "Sosyal medyada organik ve viral reklam gücü": "Organische und virale Werbewirkung in Social Media",
+                        "Lansman Fiyatları": "Einführungspreise",
+                        "Şeffaf ve Net Fiyatlandırma": "Klare und transparente Preise",
+                        "Basic": "Basic",
+                        "Standart sabit açı desteği, yüksek mukavemetli endüstriyel PETG gövde.": "Fester Standardwinkel mit hochfestem industriellem PETG-Körper.",
+                        "İnce dikey açı ayarlama mekanizması ve ekstra sarsıntı önleyici özel tırnaklar.": "Feine vertikale Winkelverstellung mit zusätzlichen Anti-Shake-Grip-Tabs.",
+                        "Ön Sipariş Ver": "Vorbestellen",
+                        "Kulüplere özel kabartmalı logo tasarımı ve toplu alımlara özel iskontolu fiyatlar.": "Individuelle Logo-Prägung für Clubs und Sonderpreise für Großbestellungen.",
+                        "Kolay Kurulum": "Einfache Montage",
+                        "3 Adımda Kayda Başla": "In 3 Schritten aufnehmen",
+                        "Aparatı Fileye Oturt": "Halter am Netz befestigen",
+                        "Özel tırnaklı yapıyı kort filesinin üst bandına tek hamlede bırakın.": "Setze die spezielle Haltestruktur mit einem Handgriff auf das obere Netzband.",
+                        "Telefonu Yerleştir": "Handy einsetzen",
+                        "Telefonunuzu dikey veya yatay olarak güvenli sıkıştırma alanına sabitleyin.": "Fixiere dein Handy vertikal oder horizontal sicher im Klemmbereich.",
+                        "Kaydı Başlat": "Aufnahme starten",
+                        "Kameranızı geniş açı moduna getirin ve benzersiz ralli analizleri üretin.": "Stelle die Kamera auf Weitwinkel und erstelle einzigartige Rallye-Analysen.",
+                        "Oyuncu Deneyimleri": "Spieler-Erfahrungen",
+                        "\"Her antrenmanı ve maçı kayıt altına alıyorum. Açı tam olarak tüm kortu kusursuz görüyor. Can ve ekibine teşekkürler.\"": "\"Ich nehme jedes Training und jedes Match auf. Der Winkel zeigt den gesamten Court perfekt. Danke an Can und sein Team.\"",
+                        "Padel Oyuncusu": "Padel-Spieler",
+                        "\"Tripod taşımaktan kurtuldum. Çantamın küçük gözüne atıyorum, maça girerken saniyeler içinde takıp kayda basıyorum.\"": "\"Ich muss kein Stativ mehr tragen. Ich lege es in die kleine Tasche meiner Bag und starte in Sekunden die Aufnahme.\"",
+                        "Tenis Antrenörü": "Tennistrainerin",
+                        "\"Kulübümüz için Club Edition modelini sipariş ettik. Üyeler video paylaştıkça kulübümüzün logosu öne çıkıyor, müthiş pazarlama!\"": "\"Wir haben die Club Edition für unseren Club bestellt. Wenn Mitglieder Videos teilen, ist unser Logo sichtbar. Starkes Marketing!\"",
+                        "Kulüp İşletmecisi": "Clubbetreiber",
+                        "Sıkça Sorulan Sorular": "Häufig gestellte Fragen",
+                        "Hangi telefonlarla uyumludur?": "Mit welchen Handys ist es kompatibel?",
+                        "Piyasadaki iOS ve Android tabanlı akıllı telefonların %99'u ile uyumludur. Genişlik ayarı sağlayan özel sıkıştırma yapısı sayesinde telefonunuzu kılıfıyla bile kullanabilirsiniz.": "Es ist mit 99% der iOS- und Android-Smartphones auf dem Markt kompatibel. Dank der verstellbaren Klemmstruktur kannst du dein Handy sogar mit Hülle verwenden.",
+                        "Sadece Padel için mi uygun?": "Ist es nur für Padel geeignet?",
+                        "Hayır. Tasarımımız hem padel hem de standart tenis kortlarındaki file bantlarıyla birebir uyumlu çalışmaktadır.": "Nein. Unser Design funktioniert sowohl mit Padelnetzen als auch mit Standard-Tennisnetz-Bändern.",
+                        "Kort filesine takılan yenilikçi telefon tutucu ile maçlarınızı profesyonel açıyla kaydedin.": "Nimm deine Matches aus einem professionellen Winkel mit dem innovativen Handyhalter auf, der am Netz befestigt wird.",
+                        "© 2024 enjoypadel. Tüm hakları saklıdır. Can Ertuğrul & Can Özdoğan tarafından tasarlanmıştır.": "© 2024 enjoypadel. Alle Rechte vorbehalten. Entworfen von Can Ertuğrul & Can Özdoğan."
             }
-            
-            console.log("Seçilen dil:", lang);
-            // İleride data-i18n çeviri kodlarını buraya ekleyebilirsin.
+};
+
+        const originalTextNodes = new WeakMap();
+
+        function cleanText(text) {
+            return text.replace(/\s+/g, ' ').trim();
         }
 
-        // Sayfa yüklendiğinde eski dil seçimi varsa getir
-        document.addEventListener('DOMContentLoaded', () => {
-            const savedLang = localStorage.getItem('enjoypadel_lang');
-            if(savedLang) {
-                setLanguage(savedLang);
+        function keepSpacing(oldValue, newValue) {
+            const startSpace = oldValue.match(/^\s*/)?.[0] || '';
+            const endSpace = oldValue.match(/\s*$/)?.[0] || '';
+            return startSpace + newValue + endSpace;
+        }
+
+        function getTextNodes() {
+            const walker = document.createTreeWalker(
+                document.body,
+                NodeFilter.SHOW_TEXT,
+                {
+                    acceptNode(node) {
+                        const parent = node.parentElement;
+                        if (!parent) return NodeFilter.FILTER_REJECT;
+
+                        const tag = parent.tagName.toLowerCase();
+                        if (['script', 'style', 'noscript'].includes(tag)) {
+                            return NodeFilter.FILTER_REJECT;
+                        }
+
+                        if (!cleanText(node.nodeValue)) {
+                            return NodeFilter.FILTER_REJECT;
+                        }
+
+                        return NodeFilter.FILTER_ACCEPT;
+                    }
+                }
+            );
+
+            const nodes = [];
+            while (walker.nextNode()) {
+                nodes.push(walker.currentNode);
             }
+            return nodes;
+        }
+
+        function rememberOriginalTexts() {
+            getTextNodes().forEach(node => {
+                if (!originalTextNodes.has(node)) {
+                    originalTextNodes.set(node, cleanText(node.nodeValue));
+                }
+            });
+        }
+
+        function setLanguage(lang) {
+            rememberOriginalTexts();
+
+            localStorage.setItem('enjoypadel_lang', lang);
+            document.documentElement.lang = lang;
+
+            const selectBox = document.getElementById('language-select');
+            if (selectBox) {
+                selectBox.value = lang;
+            }
+
+            const metaDescription = document.querySelector('meta[name="description"]');
+            const originalTitle = 'enjoypadel | Padel & Tenis File İçi Telefon Kayıt Aparatı';
+            const originalDescription = 'Padel ve tenis maçlarınızı kolayca kaydedin! Can Ertuğrul & Can Özdoğan ortaklığında geliştirilen enjoypadel 3D baskı PETG dayanıklı, fileye takılan telefon tutucu.';
+
+            if (lang === 'tr') {
+                getTextNodes().forEach(node => {
+                    const original = originalTextNodes.get(node);
+                    if (original) {
+                        node.nodeValue = keepSpacing(node.nodeValue, original);
+                    }
+                });
+
+                document.title = originalTitle;
+                if (metaDescription) {
+                    metaDescription.setAttribute('content', originalDescription);
+                }
+
+                lucide.createIcons();
+                return;
+            }
+
+            const dictionary = translations[lang] || {};
+
+            getTextNodes().forEach(node => {
+                const original = originalTextNodes.get(node);
+                if (!original) return;
+
+                const translated = dictionary[original];
+                if (translated) {
+                    node.nodeValue = keepSpacing(node.nodeValue, translated);
+                }
+            });
+
+            document.title = dictionary[originalTitle] || originalTitle;
+
+            if (metaDescription) {
+                metaDescription.setAttribute(
+                    'content',
+                    dictionary[originalDescription] || originalDescription
+                );
+            }
+
+            lucide.createIcons();
+        }
+
+        // Sayfa yüklendiğinde eski dil seçimi varsa otomatik uygula
+        document.addEventListener('DOMContentLoaded', () => {
+            rememberOriginalTexts();
+            const savedLang = localStorage.getItem('enjoypadel_lang') || 'tr';
+            setLanguage(savedLang);
         });
     </script>
-    <script src="./language-switcher.js"></script>
 </body>
 </html>
