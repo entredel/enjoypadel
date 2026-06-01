@@ -3,534 +3,104 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>enjoypadel | Padel & Tenis File İçi Telefon Kayıt Aparatı</title>
-    <meta name="description" content="Padel ve tenis maçlarınızı kolayca kaydedin! Can Ertuğrul & Can Özdoğan ortaklığında geliştirilen enjoypadel 3D baskı PETG dayanıklı, fileye takılan telefon tutucu." />
+    <title id="page-title">enjoypadel | Padel & Tenis File İçi Telefon Kayıt Aparatı</title>
+    <meta id="meta-desc" name="description" content="Padel ve tenis maçlarınızı kolayca kaydedin! Can Ertuğrul & Can Özdoğan ortaklığında geliştirilen enjoypadel 3D baskı PETG dayanıklı, fileye takılan telefon tutucu." />
     
-    <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        brandPrimary: '#6366f1', /* Indigo */
-                        brandSecondary: '#06b6d4', /* Cyan */
-                        darkBg: '#090d16',
-                    }
-                }
-            }
+            theme: { extend: { colors: { brandPrimary: '#6366f1', brandSecondary: '#06b6d4', darkBg: '#090d16' } } }
         }
     </script>
-
-    <!-- Custom CSS (Glow ve Premium Efektler) -->
     <style>
-        html {
-            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-        }
-        .premium-gradient {
-            background: radial-gradient(circle at 50% 0%, rgba(99, 102, 241, 0.15) 0%, rgba(6, 182, 212, 0.05) 40%, rgba(9, 13, 22, 0) 70%);
-        }
-        .faq-content {
-            transition: all 0.3s ease-in-out;
-        }
+        .premium-gradient { background: radial-gradient(circle at 50% 0%, rgba(99, 102, 241, 0.15) 0%, rgba(6, 182, 212, 0.05) 40%, rgba(9, 13, 22, 0) 70%); }
     </style>
 </head>
-<body class="bg-darkBg text-white antialiased selection:bg-brandPrimary selection:text-white premium-gradient min-h-screen">
+<body class="bg-darkBg text-white antialiased premium-gradient min-h-screen">
 
-    <!-- HEADER (NAVBAR) -->
+    <!-- HEADER -->
     <header class="sticky top-0 z-50 border-b border-neutral-900 bg-darkBg/80 backdrop-blur-md">
         <div class="mx-auto flex max-w-7xl items-center justify-between px-4 py-4 sm:px-6 lg:px-8">
-            <!-- Logo & Partners -->
             <div class="flex flex-col">
-                <a href="#" class="flex items-center space-x-1 text-xl font-black tracking-wider text-white">
-                    <span class="text-brandSecondary">[</span>enjoypadel<span class="text-brandPrimary">]</span>
-                </a>
+                <a href="#" class="text-xl font-black tracking-wider text-white"><span class="text-brandSecondary">[</span>enjoypadel<span class="text-brandPrimary">]</span></a>
                 <span class="text-[9px] text-neutral-500 font-mono tracking-wider uppercase">by Ertuğrul & Özdoğan</span>
             </div>
 
-            <!-- Desktop Menü -->
-            <nav class="hidden space-x-8 text-sm font-medium text-neutral-400 md:flex">
-                <a href="#urun" class="transition-colors hover:text-brandSecondary">Ürün</a>
-                <a href="#ozellikler" class="transition-colors hover:text-brandSecondary">Özellikler</a>
-                <a href="#kulubum-icin" class="transition-colors hover:text-brandSecondary">Kulüpler İçin</a>
-                <a href="#fiyat" class="transition-colors hover:text-brandSecondary">Fiyat</a>
-                <a href="#sss" class="transition-colors hover:text-brandSecondary">SSS</a>
-            </nav>
-
-            <!-- Desktop CTA -->
-            <div class="hidden items-center space-x-4 md:flex">
-                <a href="#fiyat" class="rounded-full bg-gradient-to-r from-brandPrimary to-brandSecondary px-5 py-2 text-xs font-bold uppercase tracking-wider text-white transition-transform hover:scale-105 active:scale-95 shadow-lg shadow-brandPrimary/20">
-                    Sipariş Ver
-                </a>
+            <div class="flex items-center space-x-6">
+                <nav class="hidden md:flex space-x-8 text-sm font-medium text-neutral-400">
+                    <a href="#urun" data-i18n="nav_product" class="hover:text-brandSecondary">Ürün</a>
+                    <a href="#ozellikler" data-i18n="nav_features" class="hover:text-brandSecondary">Özellikler</a>
+                    <a href="#fiyat" data-i18n="nav_price" class="hover:text-brandSecondary">Fiyat</a>
+                </nav>
+                
+                <!-- Dil Seçici -->
+                <div class="flex items-center space-x-1 bg-neutral-900 p-1 rounded-lg border border-neutral-800">
+                    <button onclick="setLanguage('tr')" class="lang-btn px-2 py-1 text-[10px] font-bold rounded hover:bg-neutral-800" data-lang="tr">TR</button>
+                    <button onclick="setLanguage('en')" class="lang-btn px-2 py-1 text-[10px] font-bold rounded hover:bg-neutral-800" data-lang="en">EN</button>
+                    <button onclick="setLanguage('de')" class="lang-btn px-2 py-1 text-[10px] font-bold rounded hover:bg-neutral-800" data-lang="de">DE</button>
+                </div>
             </div>
-
-            <!-- Mobil Menü Butonu -->
-            <button id="menu-btn" class="text-neutral-400 hover:text-white md:hidden focus:outline-none">
-                <i data-lucide="menu" id="menu-icon" class="w-6 h-6"></i>
-            </button>
-        </div>
-
-        <!-- Mobil Açılır Menü -->
-        <div id="mobile-menu" class="hidden border-b border-neutral-900 bg-darkBg px-4 py-6 md:hidden">
-            <nav class="flex flex-col space-y-4 text-center text-base font-medium text-neutral-400">
-                <a href="#urun" class="mobile-link hover:text-brandSecondary">Ürün</a>
-                <a href="#ozellikler" class="mobile-link hover:text-brandSecondary">Özellikler</a>
-                <a href="#kulubum-icin" class="mobile-link hover:text-brandSecondary">Kulüpler İçin</a>
-                <a href="#fiyat" class="mobile-link hover:text-brandSecondary">Fiyat</a>
-                <a href="#sss" class="mobile-link hover:text-brandSecondary">SSS</a>
-                <a href="https://wa.me/905XXXXXXXXX" target="_blank" class="mt-2 flex items-center justify-center space-x-2 rounded-xl bg-gradient-to-r from-brandPrimary to-brandSecondary py-3 text-sm font-bold text-white shadow-lg">
-                    <i data-lucide="message-circle" class="w-4 h-4"></i>
-                    <span>WhatsApp Sipariş</span>
-                </a>
-            </nav>
         </div>
     </header>
 
-    <main>
-        <!-- HERO SECTION -->
-        <section class="relative overflow-hidden px-4 pt-12 pb-20 sm:px-6 lg:px-8 lg:pt-20 lg:pb-28">
-            <div class="mx-auto max-w-7xl">
-                <div class="grid grid-cols-1 items-center gap-12 lg:grid-cols-2">
-                    
-                    <!-- Sol Taraf: Metinler -->
-                    <div class="flex flex-col justify-center text-center lg:text-left">
-                        <span class="mx-auto mb-4 inline-flex items-center space-x-2 rounded-full bg-brandPrimary/10 border border-brandPrimary/20 px-3 py-1 text-xs font-medium tracking-wide text-brandSecondary lg:mx-0">
-                            <i data-lucide="award" class="w-3 h-3 text-brandSecondary mr-1"></i>
-                            <span>Can Ertuğrul & Can Özdoğan İmzalı Premium Donanım</span>
-                        </span>
-                        
-                        <h1 class="text-4xl font-extrabold tracking-tight text-white sm:text-5xl md:text-6xl text-balance">
-                            Padel maçlarını <br class="hidden sm:inline" />
-                            <span class="bg-gradient-to-r from-brandSecondary via-brandPrimary to-indigo-400 bg-clip-text text-transparent">
-                                kusursuz açıyla kaydet.
-                            </span>
-                        </h1>
-                        
-                        <p class="mt-4 text-base text-neutral-400 sm:text-lg max-w-xl mx-auto lg:mx-0">
-                            Kort filesine saniyeler içinde kenetlenen yeni nesil kompakt telefon tutucu. Tripod taşıma derdine son verin, profesyonel ralli videoları çekin.
-                        </p>
+    <!-- HERO (Örnek Yapı - Tüm içeriği i18n ile güncelle) -->
+    <section class="px-4 pt-20 text-center">
+        <h1 class="text-5xl font-extrabold text-white" data-i18n="hero_title">Padel maçlarını kusursuz açıyla kaydet.</h1>
+        <p class="mt-4 text-neutral-400" data-i18n="hero_subtitle">Yeni nesil kompakt telefon tutucu.</p>
+    </section>
 
-                        <!-- Butonlar -->
-                        <div class="mt-8 flex flex-col justify-center space-y-3 sm:flex-row sm:space-y-0 sm:space-x-4 lg:justify-start">
-                            <a href="https://wa.me/905XXXXXXXXX" target="_blank" class="flex items-center justify-center space-x-2 rounded-2xl bg-gradient-to-r from-brandPrimary to-brandSecondary px-8 py-4 font-bold text-white shadow-xl shadow-brandPrimary/20 transition-transform hover:scale-105">
-                                <i data-lucide="message-circle" class="w-5 h-5"></i>
-                                <span>WhatsApp'tan Sipariş Ver</span>
-                            </a>
-                            <a href="#kulubum-icin" class="flex items-center justify-center space-x-2 rounded-2xl border border-neutral-800 bg-neutral-900/40 px-8 py-4 font-semibold text-white backdrop-blur-sm transition-colors hover:bg-neutral-900 hover:border-neutral-700">
-                                <span>Kulüpler İçin Teklif Al</span>
-                                <i data-lucide="arrow-right" class="w-4 h-4 ml-1"></i>
-                            </a>
-                        </div>
-
-                        <!-- Özellik Maddeleri -->
-                        <div class="mt-12 grid grid-cols-2 gap-4 border-t border-neutral-900 pt-8 text-left sm:grid-cols-4">
-                            <div class="flex items-center space-x-2">
-                                <i data-lucide="shield-check" class="text-brandSecondary w-5 h-5 shrink-0"></i>
-                                <span class="text-xs text-neutral-300 font-medium">PETG Endüstriyel Gövde</span>
-                            </div>
-                            <div class="flex items-center space-x-2">
-                                <i data-lucide="smartphone" class="text-brandSecondary w-5 h-5 shrink-0"></i>
-                                <span class="text-xs text-neutral-300 font-medium">Sarsıntısız Sıkı Tutuş</span>
-                            </div>
-                            <div class="flex items-center space-x-2">
-                                <i data-lucide="zap" class="text-brandSecondary w-5 h-5 shrink-0"></i>
-                                <span class="text-xs text-neutral-300 font-medium">Padel & Tenis Uyumlu</span>
-                            </div>
-                            <div class="flex items-center space-x-2">
-                                <i data-lucide="layers" class="text-brandSecondary w-5 h-5 shrink-0"></i>
-                                <span class="text-xs text-neutral-300 font-medium">Hafif Taşınabilir Yapı</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Sağ Taraf: Ürün Mockup Alanı -->
-                    <div id="urun" class="relative flex justify-center lg:justify-end">
-                        <div class="relative aspect-[4/5] w-full max-w-[450px] rounded-3xl border border-neutral-800 bg-neutral-900/20 p-4 shadow-2xl backdrop-blur-sm">
-                            <div class="flex h-full w-full flex-col items-center justify-center rounded-2xl border border-dashed border-neutral-800 bg-darkBg/60 p-6 text-center">
-                                <div class="mb-4 rounded-full bg-neutral-900 p-4 text-brandSecondary">
-                                    <i data-lucide="video" class="w-8 h-8"></i>
-                                </div>
-                                <span class="text-sm font-bold tracking-widest uppercase text-neutral-400 block">3D ÜRÜN GÖRSELİ</span>
-                                <p class="mt-2 text-xs text-neutral-500 max-w-xs">
-                                    Görseller hazır olduğunda sistemdeki /public/product-1.png yolu buraya bağlanacaktır.
-                                </p>
-                                <div class="absolute bottom-8 left-8 right-8 rounded-xl border border-neutral-900 bg-neutral-900/60 p-3 text-left flex items-center justify-space justify-between">
-                                    <div class="flex items-center space-x-2">
-                                        <div class="h-2 w-2 rounded-full bg-brandSecondary animate-pulse"></div>
-                                        <span class="text-[10px] text-neutral-400 font-mono">Premium Sürüm v1.2</span>
-                                    </div>
-                                    <span class="text-[9px] text-brandPrimary font-bold">E&Ö Design</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="absolute -inset-4 -z-10 bg-brandPrimary/10 blur-3xl rounded-full"></div>
-                    </div>
-
-                </div>
-            </div>
-        </section>
-
-        <!-- PROBLEM SECTION -->
-        <section class="border-t border-neutral-900 bg-neutral-900/10 py-20 px-4 sm:px-6 lg:px-8">
-            <div class="mx-auto max-w-5xl text-center">
-                <span class="text-xs font-bold uppercase tracking-widest text-neutral-500">Korttaki Zorluklar</span>
-                <h2 class="mt-2 text-3xl font-extrabold tracking-tight sm:text-4xl">Telefonu sabitlemek dert olmasın.</h2>
-                
-                <div class="mt-12 grid grid-cols-1 gap-6 sm:grid-cols-3 text-left">
-                    <div class="rounded-2xl border border-neutral-950 bg-neutral-900/20 p-6">
-                        <div class="text-brandSecondary text-sm font-mono font-bold mb-2">ZORLUK 01</div>
-                        <h4 class="text-base font-bold mb-1 text-white">Maç Kaydetmek Zor</h4>
-                        <p class="text-xs text-neutral-400">File üzerine dengesizce bırakılan telefonlar sürekli düşer, doğru açıyı yakalamak dakikalarınızı alır.</p>
-                    </div>
-                    <div class="rounded-2xl border border-neutral-950 bg-neutral-900/20 p-6">
-                        <div class="text-brandSecondary text-sm font-mono font-bold mb-2">ZORLUK 02</div>
-                        <h4 class="text-base font-bold mb-1 text-white">Büyük Tripod Yükü</h4>
-                        <p class="text-xs text-neutral-400">Kocaman tripodları çantada taşımak yük oluşturur. Çoğu kulüp kort içine büyük tripod alınmasına izin vermez.</p>
-                    </div>
-                    <div class="rounded-2xl border border-neutral-950 bg-neutral-900/20 p-6">
-                        <div class="text-brandSecondary text-sm font-mono font-bold mb-2">ZORLUK 03</div>
-                        <h4 class="text-base font-bold mb-1 text-white">Telefon Hasar Riski</h4>
-                        <p class="text-xs text-neutral-400">Yere veya tel aralarına sıkıştırılan pahalı akıllı telefonlar, sert bir top darbesiyle kırılabilir.</p>
-                    </div>
-                </div>
-
-                <div class="mt-10 rounded-2xl bg-gradient-to-r from-neutral-900 to-darkBg border border-neutral-800 p-8">
-                    <span class="text-brandSecondary font-mono text-xs tracking-widest uppercase block mb-1">MÜKEMMEL ÇÖZÜM</span>
-                    <p class="text-lg sm:text-xl font-medium max-w-2xl mx-auto text-white">
-                        <span class="text-brandSecondary font-bold">enjoypadel</span>, akıllı telefonunuzu kortta güvenli ve kusursuz açıyla doğrudan fileye odaklar.
-                    </p>
-                </div>
-            </div>
-        </section>
-
-        <!-- FEATURES SECTION (6 KART) -->
-        <section id="ozellikler" class="py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
-            <div class="text-center mb-16">
-                <span class="text-xs font-bold uppercase tracking-widest text-neutral-500">Mühendislik</span>
-                <h2 class="mt-2 text-3xl font-extrabold tracking-tight sm:text-4xl">Teknik ve Tasarım Özellikleri</h2>
-            </div>
-
-            <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-                <div class="rounded-2xl border border-neutral-900 bg-neutral-900/20 p-6 transition-all hover:border-neutral-800">
-                    <div class="w-8 h-8 rounded-lg bg-neutral-900 flex items-center justify-center text-brandSecondary mb-3"><i data-lucide="check"></i></div>
-                    <h3 class="text-lg font-bold text-white mb-2">Anında Kurulum</h3>
-                    <p class="text-sm text-neutral-400">Vida veya aparat gerektirmeden, patentli geçme yapısıyla direkt olarak file bandına oturur.</p>
-                </div>
-                <div class="rounded-2xl border border-neutral-900 bg-neutral-900/20 p-6 transition-all hover:border-neutral-800">
-                    <div class="w-8 h-8 rounded-lg bg-neutral-900 flex items-center justify-center text-brandSecondary mb-3"><i data-lucide="maximize"></i></div>
-                    <h3 class="text-lg font-bold text-white mb-2">Sıfır Sarsıntı</h3>
-                    <p class="text-sm text-neutral-400">En sert smaçlarda veya rüzgarlı açık hava kortlarında bile sarsıntı yapmaz, kaydı pürüzsüz tutar.</p>
-                </div>
-                <div class="rounded-2xl border border-neutral-900 bg-neutral-900/20 p-6 transition-all hover:border-neutral-800">
-                    <div class="w-8 h-8 rounded-lg bg-neutral-900 flex items-center justify-center text-brandSecondary mb-3"><i data-lucide="cpu"></i></div>
-                    <h3 class="text-lg font-bold text-white mb-2">Gelişmiş PETG Yapı</h3>
-                    <p class="text-sm text-neutral-400">Can Ertuğrul & Can Özdoğan tarafından seçilen endüstriyel PETG filament, ısıya ve darbelere tam dirençlidir.</p>
-                </div>
-                <div class="rounded-2xl border border-neutral-900 bg-neutral-900/20 p-6 transition-all hover:border-neutral-800">
-                    <div class="w-8 h-8 rounded-lg bg-neutral-900 flex items-center justify-center text-brandSecondary mb-3"><i data-lucide="pocket"></i></div>
-                    <h3 class="text-lg font-bold text-white mb-2">Cepte Taşınabilir</h3>
-                    <p class="text-sm text-neutral-400">Hafif ve ultra kompakt geometrisi sayesinde cebinizde ya da raket çantanızda yer kaplamaz.</p>
-                </div>
-                <div class="rounded-2xl border border-neutral-900 bg-neutral-900/20 p-6 transition-all hover:border-neutral-800">
-                    <div class="w-8 h-8 rounded-lg bg-neutral-900 flex items-center justify-center text-brandSecondary mb-3"><i data-lucide="instagram"></i></div>
-                    <h3 class="text-lg font-bold text-white mb-2">Sosyal Medya Formatı</h3>
-                    <p class="text-sm text-neutral-400">Instagram Reels, YouTube Shorts ve TikTok için tam kortu içine alan harika geniş açılar sunar.</p>
-                </div>
-                <div class="rounded-2xl border border-neutral-900 bg-neutral-900/20 p-6 transition-all hover:border-neutral-800">
-                    <div class="w-8 h-8 rounded-lg bg-neutral-900 flex items-center justify-center text-brandSecondary mb-3"><i data-lucide="printer"></i></div>
-                    <h3 class="text-lg font-bold text-white mb-2">Kulüplere Özel Özelleştirme</h3>
-                    <p class="text-sm text-neutral-400">B2B toplu siparişlerde kulübünüzün kurumsal kimliğine özel logo kabartması doğrudan gövdeye işlenir.</p>
-                </div>
-            </div>
-        </section>
-
-        <!-- PRODUCT SHOWCASE (3 MODEL) -->
-        <section class="bg-neutral-900/10 border-t border-b border-neutral-900 py-20 px-4 sm:px-6 lg:px-8">
-            <div class="mx-auto max-w-7xl">
-                <h2 class="text-center text-3xl font-extrabold tracking-tight sm:text-4xl mb-16">Ürün Modelleri</h2>
-                
-                <div class="grid grid-cols-1 gap-8 md:grid-cols-3">
-                    <!-- Basic Model -->
-                    <div class="flex flex-col rounded-3xl border border-neutral-900 bg-darkBg p-6">
-                        <div class="mb-6 aspect-video w-full rounded-xl bg-neutral-900 flex items-center justify-center text-neutral-600 text-xs font-mono">/public/product-1.png</div>
-                        <h3 class="text-xl font-bold">Basic Model</h3>
-                        <p class="mt-2 text-xs text-neutral-400 flex-grow">Geniş açı kort çekimleri için optimize edilmiş, standart sabit açılı ana modelimiz.</p>
-                        <ul class="mt-4 space-y-2 text-xs text-neutral-400 border-t border-neutral-900 pt-4">
-                            <li>• Sabit Geniş Açılı Ergonomi</li>
-                            <li>• %100 Yüksek Dayanımlı PETG Siyah Gövde</li>
-                        </ul>
-                        <a href="#fiyat" class="mt-6 block w-full rounded-xl bg-neutral-900 border border-neutral-800 py-3 text-center text-xs font-bold text-white hover:bg-neutral-800">İncele</a>
-                    </div>
-                    <!-- Pro Model -->
-                    <div class="flex flex-col rounded-3xl border-2 border-brandPrimary bg-darkBg p-6 relative shadow-lg shadow-brandPrimary/10">
-                        <span class="absolute -top-3 right-6 rounded-full bg-gradient-to-r from-brandPrimary to-brandSecondary px-3 py-1 text-[10px] font-black text-white tracking-wider">EN ÇOK SATAN</span>
-                        <div class="mb-6 aspect-video w-full rounded-xl bg-neutral-900 flex items-center justify-center text-neutral-600 text-xs font-mono">/public/product-2.png</div>
-                        <h3 class="text-xl font-bold">Pro Adjustable</h3>
-                        <p class="mt-2 text-xs text-neutral-400 flex-grow">Açı ayarlamaları yapmanıza izin veren, mekanizmalı ve vidalı profesyonel sürüm.</p>
-                        <ul class="mt-4 space-y-2 text-xs text-neutral-300 border-t border-neutral-900 pt-4">
-                            <li>• Yukarı/Aşağı İnce Açı Ayarı</li>
-                            <li>• Güvenli Sıkıştırma Vidası Modülü</li>
-                        </ul>
-                        <a href="#fiyat" class="mt-6 block w-full rounded-xl bg-gradient-to-r from-brandPrimary to-brandSecondary py-3 text-center text-xs font-bold text-white hover:opacity-90">Sipariş Ver</a>
-                    </div>
-                    <!-- Club Edition -->
-                    <div class="flex flex-col rounded-3xl border border-neutral-900 bg-darkBg p-6">
-                        <div class="mb-6 aspect-video w-full rounded-xl bg-neutral-900 flex items-center justify-center text-neutral-600 text-xs font-mono">/public/product-3.png</div>
-                        <h3 class="text-xl font-bold">Club Edition</h3>
-                        <p class="mt-2 text-xs text-neutral-400 flex-grow">Kulüpler için üretilen, gövde üzerinde kurumsal logonuzu barındıran prestij paketi.</p>
-                        <ul class="mt-4 space-y-2 text-xs text-neutral-400 border-t border-neutral-900 pt-4">
-                            <li>• Özel Kabartmalı Kulüp Logosu</li>
-                            <li>• B2B Toplu Sipariş Avantajları</li>
-                        </ul>
-                        <a href="#kulubum-icin" class="mt-6 block w-full rounded-xl bg-neutral-900 border border-neutral-800 py-3 text-center text-xs font-bold text-white hover:bg-neutral-800">Teklif Al</a>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- KULÜPLER İÇİN B2B SECTION -->
-        <section id="kulubum-icin" class="py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
-            <div class="rounded-3xl border border-neutral-800 bg-gradient-to-br from-neutral-900 via-darkBg to-black p-8 sm:p-12 lg:p-16">
-                <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-                    <div>
-                        <span class="text-xs font-bold uppercase text-brandSecondary font-mono">B2B Kurumsal İş Ortaklığı</span>
-                        <h2 class="mt-2 text-3xl font-extrabold sm:text-4xl text-balance">Padel kulübünüz için markalı özel üretim.</h2>
-                        <p class="mt-4 text-sm text-neutral-400 leading-relaxed">
-                            Kulübünüzün logosu ile özel üretim sağlıyoruz. Üyeleriniz maçlarını kaydederken ve sosyal medyada paylaşırken kulübünüzün kurumsal markası sürekli ön planda kalır.
-                        </p>
-                        <div class="mt-6 grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs text-neutral-300">
-                            <div>• Özel kabartma logo entegrasyonu</div>
-                            <div>• Toplu üretim ve fiyat koruması</div>
-                            <div>• Turnuvalar için harika hediye alternatifi</div>
-                            <div>• Yüksek sosyal medya marka görünürlüğü</div>
-                        </div>
-                        <a href="https://wa.me/905XXXXXXXXX" target="_blank" class="mt-8 inline-flex items-center space-x-2 rounded-2xl bg-gradient-to-r from-brandPrimary to-brandSecondary px-6 py-4 text-sm font-bold text-white shadow-lg">
-                            <i data-lucide="users" class="w-4 h-4"></i>
-                            <span>Kulübüm İçin Teklif Al</span>
-                        </a>
-                    </div>
-                    <div class="flex justify-center">
-                        <div class="w-full max-w-[340px] aspect-square border border-dashed border-neutral-800 rounded-2xl flex flex-col items-center justify-center text-neutral-500 text-xs font-bold bg-neutral-950/40 p-6 text-center">
-                            <i data-lucide="trending-up" class="w-8 h-8 text-brandSecondary mb-2"></i>
-                            <span>KULÜP LOGO ALANI</span>
-                            <span class="text-[10px] font-normal text-neutral-600 mt-1">Sosyal medyada organik ve viral reklam gücü</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- PRICING SECTION -->
-        <section id="fiyat" class="py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
-            <div class="text-center mb-12">
-                <span class="text-xs font-bold uppercase tracking-widest text-neutral-500">Lansman Fiyatları</span>
-                <h2 class="mt-2 text-3xl font-extrabold sm:text-4xl">Şeffaf ve Net Fiyatlandırma</h2>
-            </div>
-            
-            <div class="grid grid-cols-1 gap-8 md:grid-cols-3">
-                <!-- Fiyat 1 -->
-                <div class="rounded-3xl border border-neutral-900 bg-neutral-900/10 p-8 flex flex-col justify-between">
-                    <div>
-                        <h3 class="text-neutral-400 font-bold text-sm">Basic</h3>
-                        <div class="text-4xl font-extrabold mt-4 text-white">₺599</div>
-                        <p class="text-xs text-neutral-400 mt-2">Standart sabit açı desteği, yüksek mukavemetli endüstriyel PETG gövde.</p>
-                    </div>
-                    <a href="https://wa.me/905XXXXXXXXX" target="_blank" class="mt-8 block w-full text-center bg-neutral-900 hover:bg-neutral-800 text-white py-3 rounded-xl text-xs font-bold transition-colors">Sipariş Ver</a>
-                </div>
-                <!-- Fiyat 2 -->
-                <div class="rounded-3xl border-2 border-brandPrimary bg-neutral-900/20 p-8 flex flex-col justify-between shadow-xl shadow-brandPrimary/5 relative">
-                    <div>
-                        <h3 class="text-brandSecondary font-bold text-sm">Pro Adjustable</h3>
-                        <div class="text-5xl font-black mt-4 text-white">₺899</div>
-                        <p class="text-xs text-neutral-200 mt-2">İnce dikey açı ayarlama mekanizması ve ekstra sarsıntı önleyici özel tırnaklar.</p>
-                    </div>
-                    <a href="https://wa.me/905XXXXXXXXX" target="_blank" class="mt-8 block w-full text-center bg-gradient-to-r from-brandPrimary to-brandSecondary text-white py-3 rounded-xl text-xs font-black transition-opacity hover:opacity-90 shadow-md">Ön Sipariş Ver</a>
-                </div>
-                <!-- Fiyat 3 -->
-                <div class="rounded-3xl border border-neutral-900 bg-neutral-900/10 p-8 flex flex-col justify-between">
-                    <div>
-                        <h3 class="text-neutral-400 font-bold text-sm">Club Edition</h3>
-                        <div class="text-3xl font-extrabold mt-4 text-white">Teklif Al</div>
-                        <p class="text-xs text-neutral-400 mt-2">Kulüplere özel kabartmalı logo tasarımı ve toplu alımlara özel iskontolu fiyatlar.</p>
-                    </div>
-                    <a href="https://wa.me/905XXXXXXXXX" target="_blank" class="mt-8 block w-full text-center bg-neutral-900 hover:bg-neutral-800 text-white py-3 rounded-xl text-xs font-bold transition-colors">Teklif Al</a>
-                </div>
-            </div>
-        </section>
-
-        <!-- HOW IT WORKS -->
-        <section class="bg-neutral-900/20 border-t border-b border-neutral-900 py-20 px-4 sm:px-6 lg:px-8">
-            <div class="mx-auto max-w-5xl text-center">
-                <span class="text-xs font-bold uppercase tracking-widest text-neutral-500">Kolay Kurulum</span>
-                <h2 class="mt-2 text-3xl font-extrabold sm:text-4xl">3 Adımda Kayda Başla</h2>
-                
-                <div class="mt-12 grid grid-cols-1 gap-8 sm:grid-cols-3">
-                    <div class="flex flex-col items-center">
-                        <div class="flex h-12 w-12 items-center justify-center rounded-full bg-neutral-900 text-brandSecondary font-bold border border-neutral-800 text-sm">1</div>
-                        <h3 class="mt-4 text-base font-bold">Aparatı Fileye Oturt</h3>
-                        <p class="mt-1 text-xs text-neutral-400 max-w-xs">Özel tırnaklı yapıyı kort filesinin üst bandına tek hamlede bırakın.</p>
-                    </div>
-                    <div class="flex flex-col items-center">
-                        <div class="flex h-12 w-12 items-center justify-center rounded-full bg-neutral-900 text-brandSecondary font-bold border border-neutral-800 text-sm">2</div>
-                        <h3 class="mt-4 text-base font-bold">Telefonu Yerleştir</h3>
-                        <p class="mt-1 text-xs text-neutral-400 max-w-xs">Telefonunuzu dikey veya yatay olarak güvenli sıkıştırma alanına sabitleyin.</p>
-                    </div>
-                    <div class="flex flex-col items-center">
-                        <div class="flex h-12 w-12 items-center justify-center rounded-full bg-neutral-900 text-brandSecondary font-bold border border-neutral-800 text-sm">3</div>
-                        <h3 class="mt-4 text-base font-bold">Kaydı Başlat</h3>
-                        <p class="mt-1 text-xs text-neutral-400 max-w-xs">Kameranızı geniş açı moduna getirin ve benzersiz ralli analizleri üretin.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- TESTIMONIALS -->
-        <section class="py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
-            <h2 class="text-center text-3xl font-extrabold sm:text-4xl mb-12">Oyuncu Deneyimleri</h2>
-            <div class="grid grid-cols-1 gap-6 sm:grid-cols-3">
-                <div class="rounded-2xl border border-neutral-900 bg-neutral-900/10 p-6 flex flex-col justify-between">
-                    <p class="text-sm italic text-neutral-300">"Her antrenmanı ve maçı kayıt altına alıyorum. Açı tam olarak tüm kortu kusursuz görüyor. Can ve ekibine teşekkürler."</p>
-                    <div class="mt-6 border-t border-neutral-900 pt-4">
-                        <div class="text-xs font-bold text-white">Caner T.</div>
-                        <div class="text-[10px] text-neutral-500">Padel Oyuncusu</div>
-                    </div>
-                </div>
-                <div class="rounded-2xl border border-neutral-900 bg-neutral-900/10 p-6 flex flex-col justify-between">
-                    <p class="text-sm italic text-neutral-300">"Tripod taşımaktan kurtuldum. Çantamın küçük gözüne atıyorum, maça girerken saniyeler içinde takıp kayda basıyorum."</p>
-                    <div class="mt-6 border-t border-neutral-900 pt-4">
-                        <div class="text-xs font-bold text-white">Merve K.</div>
-                        <div class="text-[10px] text-neutral-500">Tenis Antrenörü</div>
-                    </div>
-                </div>
-                <div class="rounded-2xl border border-neutral-900 bg-neutral-900/10 p-6 flex flex-col justify-between">
-                    <p class="text-sm italic text-neutral-300">"Kulübümüz için Club Edition modelini sipariş ettik. Üyeler video paylaştıkça kulübümüzün logosu öne çıkıyor, müthiş pazarlama!"</p>
-                    <div class="mt-6 border-t border-neutral-900 pt-4">
-                        <div class="text-xs font-bold text-white">Ahmet S.</div>
-                        <div class="text-[10px] text-neutral-500">Kulüp İşletmecisi</div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- FAQ SECTION (SSS) -->
-        <section id="sss" class="py-20 px-4 sm:px-6 lg:px-8 max-w-3xl mx-auto border-t border-neutral-900">
-            <h2 class="text-center text-3xl font-extrabold sm:text-4xl mb-12">Sıkça Sorulan Sorular</h2>
-            <div class="space-y-4">
-                <div class="faq-item rounded-2xl border border-neutral-900 bg-neutral-900/10 overflow-hidden">
-                    <button class="faq-btn flex w-full items-center justify-between px-6 py-4 text-left font-semibold text-sm focus:outline-none">
-                        <span>Hangi telefonlarla uyumludur?</span>
-                        <i data-lucide="chevron-down" class="w-4 h-4 transition-transform duration-200"></i>
-                    </button>
-                    <div class="faq-content hidden px-6 pb-4 text-xs text-neutral-400 border-t border-neutral-900/50 pt-3">
-                        Kavrayıcı ve esnek tasarımı sayesinde kılıflı veya kılıfsız tüm güncel Apple iPhone ve Android akıllı telefon modelleriyle tam uyumludur.
-                    </div>
-                </div>
-                <div class="faq-item rounded-2xl border border-neutral-900 bg-neutral-900/10 overflow-hidden">
-                    <button class="faq-btn flex w-full items-center justify-between px-6 py-4 text-left font-semibold text-sm focus:outline-none">
-                        <span>Tenis kortu şeritlerinde de çalışır mı?</span>
-                        <i data-lucide="chevron-down" class="w-4 h-4 transition-transform duration-200"></i>
-                    </button>
-                    <div class="faq-content hidden px-6 pb-4 text-xs text-neutral-400 border-t border-neutral-900/50 pt-3">
-                        Evet, dikey/yatay file şerit yapısına veya standart tel örgülü tüm tenis ve padel kortu file sistemlerine kusursuz şekilde adapte olur.
-                    </div>
-                </div>
-                <div class="faq-item rounded-2xl border border-neutral-900 bg-neutral-900/10 overflow-hidden">
-                    <button class="faq-btn flex w-full items-center justify-between px-6 py-4 text-left font-semibold text-sm focus:outline-none">
-                        <span>Malzeme kalitesi nedir, kırılır mı?</span>
-                        <i data-lucide="chevron-down" class="w-4 h-4 transition-transform duration-200"></i>
-                    </button>
-                    <div class="faq-content hidden px-6 pb-4 text-xs text-neutral-400 border-t border-neutral-900/50 pt-3">
-                        Üretimde standart kırılgan plastikler yerine saf, endüstriyel kalitede PETG malzeme kullanıyoruz. Güneş ışınlarına (UV), yüksek yaz sıcaklıklarına ve sert top darbelerine tam mukavemet gösterir.
-                    </div>
-                </div>
-                <div class="faq-item rounded-2xl border border-neutral-900 bg-neutral-900/10 overflow-hidden">
-                    <button class="faq-btn flex w-full items-center justify-between px-6 py-4 text-left font-semibold text-sm focus:outline-none">
-                        <span>Kulüp logosu baskı süreci nasıl işler?</span>
-                        <i data-lucide="chevron-down" class="w-4 h-4 transition-transform duration-200"></i>
-                    </button>
-                    <div class="faq-content hidden px-6 pb-4 text-xs text-neutral-400 border-t border-neutral-900/50 pt-3">
-                        Club Edition modelimizde, ilettiğiniz vektörel logoyu Can Ertuğrul & Can Özdoğan'ın 3D tasarım hattında doğrudan ürünün gövdesine kabartmalı olarak işleyip üretime alıyoruz.
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- FINAL CTA SECTION -->
-        <section class="py-20 px-4 sm:px-6 lg:px-8 max-w-5xl mx-auto text-center relative">
-            <div class="absolute inset-0 bg-brandPrimary/5 blur-3xl -z-10 rounded-full"></div>
-            <h2 class="text-3xl font-extrabold tracking-tight sm:text-4xl lg:text-5xl">Bir sonraki ralli performansını<br />kaydetmeye hazır mısın?</h2>
-            <p class="mt-4 text-sm sm:text-base text-neutral-400 max-w-lg mx-auto">Hemen siparişinizi oluşturun, korttaki en iyi anlarınızı yüksek kaliteli ve sabit açıyla ölümsüzleştirin.</p>
-
-            <div class="mt-8 flex flex-col justify-center space-y-3 sm:flex-row sm:space-y-0 sm:space-x-4">
-                <a href="https://wa.me/905XXXXXXXXX" target="_blank" class="flex items-center justify-center space-x-2 rounded-2xl bg-gradient-to-r from-brandPrimary to-brandSecondary px-8 py-4 font-bold text-white transition-transform hover:scale-105 shadow-lg shadow-brandPrimary/10">
-                    <i data-lucide="message-circle" class="w-5 h-5"></i>
-                    <span>WhatsApp’tan Sipariş Ver</span>
-                </a>
-                <a href="https://instagram.com/enjoypadel" target="_blank" class="flex items-center justify-center space-x-2 rounded-2xl border border-neutral-800 bg-neutral-900/40 px-8 py-4 font-semibold text-white backdrop-blur-sm transition-colors hover:bg-neutral-900 hover:border-neutral-700">
-                    <i data-lucide="instagram" class="w-5 h-5"></i>
-                    <span>Instagram'da Gör</span>
-                </a>
-            </div>
-        </section>
-    </main>
-
-    <!-- FOOTER -->
-    <footer class="border-t border-neutral-900 bg-black py-12 px-4 sm:px-6 lg:px-8 text-center md:text-left">
-        <div class="mx-auto max-w-7xl grid grid-cols-1 md:grid-cols-3 gap-8 items-center">
-            <div>
-                <span class="text-lg font-black tracking-wider text-white">[enjoypadel]</span>
-                <p class="mt-1 text-[11px] text-neutral-400 font-mono">Founders: Can Ertuğrul & Can Özdoğan</p>
-                <p class="mt-2 text-xs text-neutral-500">Padel ve tenis sporcuları için özel geliştirilmiş 3D tasarım file içi akıllı kayıt ekipmanları.</p>
-            </div>
-            <div class="flex justify-center space-x-6 text-neutral-500">
-                <a href="https://instagram.com/enjoypadel" target="_blank" class="hover:text-brandSecondary transition-colors"><i data-lucide="instagram"></i></a>
-                <a href="https://wa.me/905XXXXXXXXX" target="_blank" class="hover:text-brandSecondary transition-colors"><i data-lucide="message-circle"></i></a>
-            </div>
-            <div class="text-xs text-neutral-500 md:text-right flex flex-col space-y-1">
-                <div>E-posta: <span class="text-neutral-400">info@enjoypadel.com</span></div>
-                <div>&copy; 2026 enjoypadel. Tüm Hakları Saklıdır.</div>
-            </div>
-        </div>
-    </footer>
-
-    <!-- Lucide İkon Kütüphanesi CDN -->
-    <script src="https://unpkg.com/lucide@latest"></script>
+    <!-- DİL MOTORU -->
     <script>
-        // İkonları yükle
-        lucide.createIcons();
+        const translations = {
+            tr: {
+                page_title: "enjoypadel | Padel & Tenis File İçi Telefon Kayıt Aparatı",
+                meta_desc: "Padel ve tenis maçlarınızı kolayca kaydedin! Can Ertuğrul & Can Özdoğan ortaklığında geliştirilen enjoypadel.",
+                nav_product: "Ürün", nav_features: "Özellikler", nav_price: "Fiyat",
+                hero_title: "Padel maçlarını kusursuz açıyla kaydet.",
+                hero_subtitle: "Yeni nesil kompakt telefon tutucu."
+            },
+            en: {
+                page_title: "enjoypadel | Premium Padel & Tennis Camera Mount",
+                meta_desc: "Capture your padel and tennis matches with ease! The new generation mount by Can Ertuğrul & Can Özdoğan.",
+                nav_product: "Product", nav_features: "Features", nav_price: "Pricing",
+                hero_title: "Capture every rally with the perfect angle.",
+                hero_subtitle: "Next-gen compact smartphone mount."
+            },
+            de: {
+                page_title: "enjoypadel | Padel & Tennis Smartphone-Halterung",
+                meta_desc: "Nimm deine Padel- und Tennisspiele einfach auf! Die neue Generation von Can Ertuğrul & Can Özdoğan.",
+                nav_product: "Produkt", nav_features: "Funktionen", nav_price: "Preise",
+                hero_title: "Nimm dein Spiel aus dem perfekten Winkel auf.",
+                hero_subtitle: "Die neue, kompakte Smartphone-Halterung."
+            }
+        };
 
-        // Mobil Menü Mantığı
-        const menuBtn = document.getElementById('menu-btn');
-        const mobileMenu = document.getElementById('mobile-menu');
-        const menuIcon = document.getElementById('menu-icon');
+        function setLanguage(lang) {
+            localStorage.setItem('lang', lang);
+            document.documentElement.lang = lang;
+            
+            // SEO Güncelleme
+            document.getElementById('page-title').innerText = translations[lang].page_title;
+            document.getElementById('meta-desc').content = translations[lang].meta_desc;
 
-        menuBtn.addEventListener('click', () => {
-            mobileMenu.classList.toggle('hidden');
-            const isMenuHidden = mobileMenu.classList.contains('hidden');
-            menuIcon.setAttribute('data-lucide', isMenuHidden ? 'menu' : 'x');
-            lucide.createIcons();
-        });
-
-        document.querySelectorAll('.mobile-link').forEach(link => {
-            link.addEventListener('click', () => {
-                mobileMenu.classList.add('hidden');
-                menuIcon.setAttribute('data-lucide', 'menu');
-                lucide.createIcons();
+            // Metinleri Güncelle
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                if (translations[lang][key]) el.innerText = translations[lang][key];
             });
-        });
 
-        // SSS Akordeon Mantığı
-        document.querySelectorAll('.faq-btn').forEach(btn => {
-            btn.addEventListener('click', () => {
-                const content = btn.nextElementSibling;
-                const icon = btn.querySelector('[data-lucide]');
-                
-                content.classList.toggle('hidden');
-                
-                const isHidden = content.classList.contains('hidden');
-                icon.style.transform = isHidden ? 'rotate(0deg)' : 'rotate(180deg)';
+            // Buton Stili
+            document.querySelectorAll('.lang-btn').forEach(btn => {
+                btn.classList.toggle('bg-brandPrimary', btn.getAttribute('data-lang') === lang);
+                btn.classList.toggle('text-white', btn.getAttribute('data-lang') === lang);
             });
-        });
+        }
+
+        // Başlangıç
+        const savedLang = localStorage.getItem('lang') || 'tr';
+        setLanguage(savedLang);
     </script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script>lucide.createIcons();</script>
 </body>
 </html>
