@@ -1,0 +1,641 @@
+import React, { useState } from 'react';
+import { 
+  MessageCircle, 
+  Instagram, 
+  Smartphone, 
+  Video, 
+  Layers, 
+  ShieldCheck, 
+  Zap, 
+  Award, 
+  Users, 
+  ChevronDown, 
+  ChevronUp, 
+  Menu, 
+  X, 
+  ArrowRight, 
+  Star, 
+  TrendingUp, 
+  Package 
+} from 'lucide-react';
+
+export default function App() {
+  // State Yönetimleri
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [activeFaq, setActiveFaq] = useState(null);
+
+  // Link Sabitleri
+  const WHATSAPP_LINK = "https://wa.me/905XXXXXXXXX?text=Merhaba,%20[MARKA_ADI]%20ürünleri%20hakkında%20bilgi%20almak%20istiyorum.";
+  const INSTAGRAM_LINK = "https://instagram.com/markaadi";
+
+  // SSS Verileri
+  const faqData = [
+    {
+      q: "Hangi telefonlarla uyumlu?",
+      a: "Esnek tutucu mekanizması sayesinde Apple iPhone, Samsung Galaxy ve diğer tüm popüler Android akıllı telefon modelleriyle (kılıflı veya kılıfsız) %100 uyumludur."
+    },
+    {
+      q: "Padel dışında tenis için kullanılır mı?",
+      a: "Evet! Standart tel örgülü veya dikey/yatay şeritli tüm tenis ve padel kortu file sistemlerine, ayrıca kort çevresindeki bazı tel çitlere mükemmel şekilde uyum sağlar."
+    },
+    {
+      q: "3D baskı ürün kırılır mı? Ne kadar dayanıklı?",
+      a: "Ürünlerimizde standart plastikler yerine endüstriyel kalitede PETG filament kullanıyoruz. Güneş ışığına (UV), yüksek sıcaklığa ve sert darbelere karşı son derece dayanıklıdır. Kort şartları için özel olarak optimize edilmiştir."
+    },
+    {
+      q: "Kulüp logosu veya özel isim basılıyor mu?",
+      a: "Evet, Club Edition modelimizde minimum 10 adet siparişlerde kulübünüzün logosunu veya istediğiniz ismi ürün gövdesine kabartma/baskı olarak ekleyebiliyoruz."
+    },
+    {
+      q: "Sipariş kaç günde hazırlanır ve kargolanır?",
+      a: "Bireysel siparişleriniz genellikle 24-48 saat içinde üretilip kargoya teslim edilir. Kulüplere özel toplu B2B siparişlerde ise adete bağlı olarak teslimat süresi teklif aşamasında netleştirilir."
+    },
+    {
+      q: "Farklı renk seçenekleri var mı?",
+      a: "Standart olarak premium Mat Siyah ve Padel Neon Yeşili seçeneklerimiz mevcuttur. Toplu kulüp siparişlerinde kulüp kurumsal renklerine özel üretim yapabiliyoruz."
+    }
+  ];
+
+  const toggleFaq = (index) => {
+    setActiveFaq(activeFaq === index ? null : index);
+  };
+
+  return (
+    <div className="min-h-screen bg-neutral-950 text-white antialiased selection:bg-padelLime selection:text-black premium-gradient">
+      
+      {/* HEADER SECTION */}
+      <header className="sticky top-0 z-50 border-b border-neutral-900 bg-neutral-950/80 backdrop-blur-md">
+        <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-4 sm:px-6 lg:px-8">
+          {/* Logo */}
+          <a href="#" className="flex items-center space-x-2 text-xl font-black tracking-wider text-white">
+            <span className="text-padelLime">[</span>MARKA_ADI<span className="text-padelLime">]</span>
+          </a>
+
+          {/* Desktop Navigation */}
+          <nav className="hidden space-x-8 text-sm font-medium text-neutral-400 md:flex">
+            <a href="#urun" className="transition-colors hover:text-padelLime">Ürün</a>
+            <a href="#ozellikler" className="transition-colors hover:text-padelLime">Özellikler</a>
+            <a href="#kulubum-icin" className="transition-colors hover:text-padelLime">Kulüpler İçin</a>
+            <a href="#fiyat" className="transition-colors hover:text-padelLime">Fiyat</a>
+            <a href="#sss" className="transition-colors hover:text-padelLime">SSS</a>
+          </nav>
+
+          {/* Desktop CTA */}
+          <div className="hidden items-center space-x-4 md:flex">
+            <a 
+              href="#fiyat" 
+              className="rounded-full bg-padelLime px-5 py-2 text-xs font-bold uppercase tracking-wider text-black transition-transform hover:scale-105 active:scale-95"
+            >
+              Sipariş Ver
+            </a>
+          </div>
+
+          {/* Mobile Menu Button */}
+          <button 
+            className="text-neutral-400 hover:text-white md:hidden"
+            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+          >
+            {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+          </button>
+        </div>
+
+        {/* Mobile Navigation Dropdown */}
+        {isMobileMenuOpen && (
+          <div className="border-b border-neutral-900 bg-neutral-950 px-4 py-6 md:hidden">
+            <nav className="flex flex-col space-y-4 text-center text-base font-medium text-neutral-400">
+              <a href="#urun" onClick={() => setIsMobileMenuOpen(false)} className="hover:text-padelLime">Ürün</a>
+              <a href="#ozellikler" onClick={() => setIsMobileMenuOpen(false)} className="hover:text-padelLime">Özellikler</a>
+              <a href="#kulubum-icin" onClick={() => setIsMobileMenuOpen(false)} className="hover:text-padelLime">Kulüpler İçin</a>
+              <a href="#fiyat" onClick={() => setIsMobileMenuOpen(false)} className="hover:text-padelLime">Fiyat</a>
+              <a href="#sss" onClick={() => setIsMobileMenuOpen(false)} className="hover:text-padelLime">SSS</a>
+              <a 
+                href={WHATSAPP_LINK}
+                target="_blank"
+                rel="noreferrer"
+                className="mt-2 flex items-center justify-center space-x-2 rounded-xl bg-padelLime py-3 text-sm font-bold text-black"
+              >
+                <MessageCircle size={18} />
+                <span>WhatsApp Sipariş</span>
+              </a>
+            </nav>
+          </div>
+        )}
+      </header>
+
+      <main>
+        {/* HERO SECTION */}
+        <section className="relative overflow-hidden px-4 pt-12 pb-20 sm:px-6 lg:px-8 lg:pt-20 lg:pb-28">
+          <div className="mx-auto max-w-7xl">
+            <div className="grid grid-cols-1 items-center gap-12 lg:grid-cols-2">
+              
+              {/* Sol Taraf: Metinler ve CTA */}
+              <div className="flex flex-col justify-center text-center lg:text-left">
+                <span className="mx-auto mb-4 inline-flex items-center space-x-1 rounded-full bg-padelLime/10 px-3 py-1 text-xs font-medium tracking-wide text-padelLime lg:mx-0">
+                  <Zap size={12} className="fill-padelLime" />
+                  <span>%100 Yeni Nesil Kort Ekipmanı</span>
+                </span>
+                
+                <h1 className="text-4xl font-extrabold tracking-tight text-white sm:text-5xl md:text-6xl">
+                  Padel maçlarını <br className="hidden sm:inline" />
+                  <span className="bg-gradient-to-r from-padelLime to-emerald-400 bg-clip-text text-transparent">
+                    profesyonel gibi kaydet.
+                  </span>
+                </h1>
+                
+                <p className="mt-4 text-base text-neutral-400 sm:text-lg max-w-xl mx-auto lg:mx-0">
+                  Fileye takılan kompakt telefon tutucu ile maçlarını, antrenmanlarını ve en iyi rallilerini saniyeler içinde kayda al. Tripod derdine son ver.
+                </p>
+
+                {/* CTA Buton Grubu */}
+                <div className="mt-8 flex flex-col justify-center space-y-3 sm:flex-row sm:space-y-0 sm:space-x-4 lg:justify-start">
+                  <a 
+                    href={WHATSAPP_LINK}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="flex items-center justify-center space-x-2 rounded-2xl bg-padelLime px-8 py-4 font-bold text-black shadow-lg shadow-padelLime/10 transition-transform hover:scale-105"
+                  >
+                    <MessageCircle size={20} />
+                    <span>WhatsApp'tan Sipariş Ver</span>
+                  </a>
+                  
+                  <a 
+                    href="#kulubum-icin"
+                    className="flex items-center justify-center space-x-2 rounded-2xl border border-neutral-800 bg-neutral-900/50 px-8 py-4 font-semibold text-white backdrop-blur-sm transition-colors hover:bg-neutral-900 hover:border-neutral-700"
+                  >
+                    <span>Kulüpler İçin Teklif Al</span>
+                    <ArrowRight size={18} />
+                  </a>
+                </div>
+
+                {/* Güven Maddeleri */}
+                <div className="mt-12 grid grid-cols-2 gap-4 border-t border-neutral-900 pt-8 text-left sm:grid-cols-4">
+                  <div className="flex items-center space-x-2">
+                    <ShieldCheck className="text-padelLime shrink-0" size={18} />
+                    <span className="text-xs text-neutral-300 font-medium">PETG Dayanıklı Gövde</span>
+                  </div>
+                  <div className="flex items-center space-x-2">
+                    <Smartphone className="text-padelLime shrink-0" size={18} />
+                    <span className="text-xs text-neutral-300 font-medium">Güvenli Sıkı Tutuş</span>
+                  </div>
+                  <div className="flex items-center space-x-2">
+                    <Award className="text-padelLime shrink-0" size={18} />
+                    <span className="text-xs text-neutral-300 font-medium">Padel & Tenis Uyumlu</span>
+                  </div>
+                  <div className="flex items-center space-x-2">
+                    <Layers className="text-padelLime shrink-0" size={18} />
+                    <span className="text-xs text-neutral-300 font-medium">Hafif ve Taşınabilir</span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Sağ Taraf: Premium Mockup Alanı */}
+              <div id="urun" className="relative flex justify-center lg:justify-end">
+                <div className="relative aspect-[4/5] w-full max-w-[450px] rounded-3xl border border-neutral-800 bg-neutral-900/30 p-4 shadow-2xl backdrop-blur-sm">
+                  {/* İç placeholder alanı */}
+                  <div className="flex h-full w-full flex-col items-center justify-center rounded-2xl border border-dashed border-neutral-800 bg-neutral-950/60 p-6 text-center">
+                    <div className="mb-4 rounded-full bg-neutral-900 p-4 text-padelLime">
+                      <Video size={36} />
+                    </div>
+                    <span className="text-sm font-bold tracking-widest uppercase text-neutral-500">3D ÜRÜN GÖRSELİ / MOCKUP</span>
+                    <p className="mt-2 text-xs text-neutral-500 max-w-xs">
+                      Sipariş aşamasında /public/product-1.png görsel yolu buraya entegre edilecektir.
+                    </p>
+                    
+                    {/* Estetik Tasarım Detayı */}
+                    <div className="absolute bottom-8 left-8 right-8 rounded-xl border border-neutral-900 bg-neutral-900/60 p-3 text-left flex items-center space-x-3">
+                      <div className="h-2 w-2 rounded-full bg-padelLime animate-pulse"></div>
+                      <span className="text-xs text-neutral-400 font-mono">Premium PETG Filament Structure v1.0</span>
+                    </div>
+                  </div>
+                </div>
+                {/* Arkadaki Şık Glow Efekti */}
+                <div className="absolute -inset-4 -z-10 bg-padelLime/5 blur-3xl rounded-full"></div>
+              </div>
+
+            </div>
+          </div>
+        </section>
+
+        {/* PROBLEM & SOLUTION SECTION */}
+        <section className="border-t border-neutral-950 bg-neutral-900/20 py-20 px-4 sm:px-6 lg:px-8">
+          <div className="mx-auto max-w-5xl text-center">
+            <span className="text-xs font-bold uppercase tracking-widest text-neutral-500">Korttaki Zorluklar</span>
+            <h2 className="mt-2 text-3xl font-extrabold tracking-tight sm:text-4xl">
+              Telefonu nereye koyacağını düşünme.
+            </h2>
+            <p className="mt-3 text-neutral-400 max-w-xl mx-auto text-sm sm:text-base">
+              Her maç sonrası "Keşke o ralli kayıtta olsaydı" demekten veya amatör çözümlerle zaman kaybetmekten sıkılmadınız mı?
+            </p>
+
+            {/* 3 Problem Kartı */}
+            <div className="mt-12 grid grid-cols-1 gap-6 sm:grid-cols-3 text-left">
+              <div className="rounded-2xl border border-neutral-900 bg-neutral-950 p-6">
+                <div className="text-red-500 text-lg font-bold mb-2">01 / Maç Kaydetmek Zor</div>
+                <p className="text-sm text-neutral-400">File üzerine dengesizce bırakılan telefonlar sürekli düşer, doğru açıyı yakalamak dakikalarınızı alır.</p>
+              </div>
+              <div className="rounded-2xl border border-neutral-900 bg-neutral-950 p-6">
+                <div className="text-red-500 text-lg font-bold mb-2">02 / Tripod Taşımak Zahmetli</div>
+                <p className="text-sm text-neutral-400">Kocaman tripodları çantada taşımak, korta kurmak yük oluşturur. Çoğu kulüp kort içine tripod alınmasına izin vermez.</p>
+              </div>
+              <div className="rounded-2xl border border-neutral-900 bg-neutral-950 p-6">
+                <div className="text-red-500 text-lg font-bold mb-2">03 / Telefon Riski</div>
+                <p className="text-sm text-neutral-400">Yere veya uygunsuz yerlere sıkıştırılan pahalı akıllı telefonlar, sert bir padel topu darbesiyle kırılabilir veya çizilebilir.</p>
+              </div>
+            </div>
+
+            {/* Çözüm Banner */}
+            <div className="mt-10 rounded-2xl bg-gradient-to-r from-neutral-900 to-neutral-950 border border-neutral-800 p-8 flex flex-col items-center justify-center">
+              <span className="text-padelLime font-mono text-sm tracking-widest uppercase mb-1">KESİN ÇÖZÜM</span>
+              <p className="text-lg sm:text-xl font-medium max-w-2xl text-white">
+                <strong className="text-padelLime">[MARKA_ADI]</strong>, telefonunu kortta güvenli, sarsıntısız ve doğru açıyla doğrudan fileye sabitler.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        {/* FEATURES SECTION */}
+        <section id="ozellikler" className="py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+          <div className="text-center lg:text-left lg:flex lg:items-end lg:justify-between mb-16">
+            <div>
+              <span className="text-xs font-bold uppercase tracking-widest text-neutral-500">Mühendislik ve Tasarım</span>
+              <h2 className="mt-2 text-3xl font-extrabold tracking-tight sm:text-4xl">Öne Çıkan Üstün Özellikler</h2>
+            </div>
+            <p className="mt-4 lg:mt-0 text-neutral-400 max-w-md text-sm sm:text-base text-center lg:text-left">
+              Her detayı padel ve tenis oyuncularının dinamik hareketleri düşünülerek test edildi ve geliştirildi.
+            </p>
+          </div>
+
+          {/* 6 Özellik Kartı */}
+          <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {[
+              { title: "Fileye Kolay Takılır", desc: "Saniyeler içinde, hiçbir ekstra alet veya vida gerektirmeden direkt olarak file bandına veya ağına kenetlenir." },
+              { title: "Telefonu Sabit Tutar", desc: "Sert smaçlarda veya rüzgarlı havalarda bile sarsıntı yapmaz, kaydı bozmaz ve telefonu sımsıkı kavrar." },
+              { title: "PETG Malzeme ile Dayanıklı", desc: "Endüstriyel 3D yazıcılarda basılan PETG malzeme yapısıyla darbelere, düşmelere ve UV güneş ışınlarına dayanıklıdır." },
+              { title: "Hafif ve Çantada Taşınabilir", desc: "Cebinize veya raket çantanızın küçük gözüne bile sığacak kadar ultra kompakt ve hafif bir forma sahiptir." },
+              { title: "Sosyal Medya İçin İdeal", desc: "Instagram Reels, TikTok veya YouTube için kusursuz geniş açı kort videoları üretmenize olanak tanır." },
+              { title: "Kulüp Logosu / İsim Baskısı", desc: "B2B siparişlerde, kulübünüzün kurumsal kimliğine özel logo kabartması veya isim özelleştirmesi yapılabilir." }
+            ].map((feat, idx) => (
+              <div key={idx} className="group rounded-2xl border border-neutral-900 bg-neutral-900/20 p-6 transition-all duration-300 hover:border-neutral-800 hover:bg-neutral-900/50">
+                <div className="mb-4 inline-flex h-10 w-10 items-center justify-center rounded-xl bg-neutral-900 text-padelLime group-hover:bg-padelLime group-hover:text-black transition-colors">
+                  <Star size={18} />
+                </div>
+                <h3 className="text-lg font-bold text-white mb-2">{feat.title}</h3>
+                <p className="text-sm text-neutral-400 leading-relaxed">{feat.desc}</p>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        {/* PRODUCT SHOWCASE */}
+        <section className="bg-neutral-900/10 border-t border-b border-neutral-900 py-20 px-4 sm:px-6 lg:px-8">
+          <div className="mx-auto max-w-7xl">
+            <div className="text-center mb-16">
+              <span className="text-xs font-bold uppercase tracking-widest text-neutral-500">Koleksiyon</span>
+              <h2 className="mt-2 text-3xl font-extrabold tracking-tight sm:text-4xl">İhtiyacınıza Uygun Modeller</h2>
+            </div>
+
+            {/* 3 Model Kartı */}
+            <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
+              
+              {/* Basic Model */}
+              <div className="flex flex-col rounded-3xl border border-neutral-900 bg-neutral-950 p-6 relative">
+                <div className="mb-6 aspect-video w-full rounded-xl bg-neutral-900 flex items-center justify-center border border-neutral-800">
+                  <span className="text-xs font-mono text-neutral-500">/public/product-1.png</span>
+                </div>
+                <h3 className="text-xl font-bold">Basic Model</h3>
+                <p className="mt-2 text-xs text-neutral-400 flex-grow">Geniş açı kort çekimleri için optimize edilmiş standart sabit açıya sahip ekonomik model.</p>
+                <ul className="mt-4 space-y-2 text-xs text-neutral-300 border-t border-neutral-900 pt-4">
+                  <li className="flex items-center"><span className="mr-2 text-padelLime">✓</span> Sabit Geniş Açı Tasarım</li>
+                  <li className="flex items-center"><span className="mr-2 text-padelLime">✓</span> %100 PETG Gövde Durability</li>
+                  <li className="flex items-center"><span className="mr-2 text-padelLime">✓</span> Universal Telefon Yuvası</li>
+                </ul>
+                <a href="#fiyat" className="mt-6 block w-full rounded-xl bg-neutral-900 border border-neutral-800 py-3 text-center text-xs font-bold uppercase tracking-wider text-white hover:bg-neutral-800">
+                  İncele & Satın Al
+                </a>
+              </div>
+
+              {/* Pro Model */}
+              <div className="flex flex-col rounded-3xl border-2 border-padelLime bg-neutral-950 p-6 relative shadow-xl shadow-padelLime/5">
+                <span className="absolute -top-3 right-6 rounded-full bg-padelLime px-3 py-1 text-[10px] font-black uppercase tracking-wider text-black">EN POPÜLER</span>
+                <div className="mb-6 aspect-video w-full rounded-xl bg-neutral-900 flex items-center justify-center border border-neutral-800">
+                  <span className="text-xs font-mono text-neutral-500">/public/product-2.png</span>
+                </div>
+                <h3 className="text-xl font-bold">Pro Adjustable</h3>
+                <p className="mt-2 text-xs text-neutral-400 flex-grow">İnce açı ayarlamaları yapmanıza olanak tanıyan, rüzgar ve sarsıntı önleyici mekanizmalı profesyonel sürüm.</p>
+                <ul className="mt-4 space-y-2 text-xs text-neutral-300 border-t border-neutral-900 pt-4">
+                  <li className="flex items-center"><span className="mr-2 text-padelLime">✓</span> Yukarı/Aşağı Açı Ayarı Mekanizması</li>
+                  <li className="flex items-center"><span className="mr-2 text-padelLime">✓</span> Güçlendirilmiş Kilitleme Sistemi</li>
+                  <li className="flex items-center"><span className="mr-2 text-padelLime">✓</span> Mat Renk Premium Kaplama</li>
+                </ul>
+                <a href="#fiyat" className="mt-6 block w-full rounded-xl bg-padelLime py-3 text-center text-xs font-bold uppercase tracking-wider text-black hover:opacity-90">
+                  Hemen Sipariş Ver
+                </a>
+              </div>
+
+              {/* Club Edition */}
+              <div className="flex flex-col rounded-3xl border border-neutral-900 bg-neutral-950 p-6 relative">
+                <div className="mb-6 aspect-video w-full rounded-xl bg-neutral-900 flex items-center justify-center border border-neutral-800">
+                  <span className="text-xs font-mono text-neutral-500">/public/product-3.png</span>
+                </div>
+                <h3 className="text-xl font-bold">Club Edition</h3>
+                <p className="mt-2 text-xs text-neutral-400 flex-grow">Kulüpler için özel üretilen, gövde üzerinde kulüp logosu veya özel oyuncu ismi barındıran kurumsal model.</p>
+                <ul className="mt-4 space-y-2 text-xs text-neutral-300 border-t border-neutral-900 pt-4">
+                  <li className="flex items-center"><span className="mr-2 text-padelLime">✓</span> Kabartmalı Kulüp Logosu Baskısı</li>
+                  <li className="flex items-center"><span className="mr-2 text-padelLime">✓</span> Kulübe Özel Renk Kombinasyonları</li>
+                  <li className="flex items-center"><span className="mr-2 text-padelLime">✓</span> Toplu Alımlarda Özel İndirim</li>
+                </ul>
+                <a href="#kulubum-icin" className="mt-6 block w-full rounded-xl bg-neutral-900 border border-neutral-800 py-3 text-center text-xs font-bold uppercase tracking-wider text-white hover:bg-neutral-800">
+                  Teklif Talebi Gönder
+                </a>
+              </div>
+
+            </div>
+          </div>
+        </section>
+
+        {/* KULÜPLER İÇİN B2B SECTION */}
+        <section id="kulubum-icin" className="relative py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto overflow-hidden">
+          <div className="rounded-3xl border border-neutral-800 bg-gradient-to-br from-neutral-900 to-black p-8 sm:p-12 lg:p-16 relative">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+              
+              <div>
+                <span className="text-xs font-bold uppercase tracking-widest text-padelLime font-mono">B2B Ortaklık</span>
+                <h2 className="mt-2 text-3xl font-extrabold tracking-tight sm:text-4xl">
+                  Padel kulübünüz için markalı video holder.
+                </h2>
+                <p className="mt-4 text-sm sm:text-base text-neutral-400 leading-relaxed">
+                  Kulübünüzün logosu ile özel üretim yapıyoruz. Oyuncularınız ve üyeleriniz en iyi maçlarını kaydederken, sosyal medyada paylaştıkları her videoda kulübünüzün markası ve logosu görünür olur. Kulübünüz için harika bir reklam aracı ve prestij kaynağı!
+                </p>
+
+                {/* Avantajlar */}
+                <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 gap-3">
+                  {[
+                    "Kulüp logosu baskısı",
+                    "Toplu üretim imkanı",
+                    "Turnuva hediyesi alternatifi",
+                    "Üyelere satış/kiralama modeli",
+                    "Sosyal medya görünürlüğü artışı"
+                  ].map((adv, idx) => (
+                    <div key={idx} className="flex items-center space-x-2 text-xs text-neutral-300">
+                      <div className="h-1.5 w-1.5 rounded-full bg-padelLime"></div>
+                      <span>{adv}</span>
+                    </div>
+                  ))}
+                </div>
+
+                <div className="mt-8">
+                  <a 
+                    href={WHATSAPP_LINK}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="inline-flex items-center space-x-2 rounded-2xl bg-padelLime px-6 py-4.5 text-sm font-bold text-black shadow-lg shadow-padelLime/5 transition-transform hover:scale-105"
+                  >
+                    <Users size={16} />
+                    <span>Kulübüm İçin Teklif Al</span>
+                  </a>
+                </div>
+              </div>
+
+              {/* B2B Sağ Görsel Alanı */}
+              <div className="flex justify-center">
+                <div className="w-full max-w-[380px] aspect-square rounded-2xl border border-neutral-800 bg-neutral-950/60 p-6 flex flex-col items-center justify-center text-center border-dashed">
+                  <TrendingUp size={40} className="text-padelLime mb-3" />
+                  <span className="text-xs font-bold tracking-wider text-neutral-400">KULÜP LOGO ALANI</span>
+                  <p className="mt-2 text-xs text-neutral-500 max-w-[220px]">
+                    Kort içi videolarda markanız viral etki yaratsın.
+                  </p>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </section>
+
+        {/* PRICING SECTION */}
+        <section id="fiyat" className="py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+          <div className="text-center mb-16">
+            <span className="text-xs font-bold uppercase tracking-widest text-neutral-500">Şeffaf Fiyatlandırma</span>
+            <h2 className="mt-2 text-3xl font-extrabold tracking-tight sm:text-4xl">Avantajlı Lansman Fiyatları</h2>
+          </div>
+
+          <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
+            
+            {/* Fiyat Kartı 1 */}
+            <div className="rounded-3xl border border-neutral-900 bg-neutral-900/20 p-8 flex flex-col justify-between">
+              <div>
+                <h3 className="text-lg font-bold text-neutral-400">Basic Sürüm</h3>
+                <div className="mt-4 flex items-baseline">
+                  <span className="text-4xl font-extrabold text-white">₺599</span>
+                  <span className="ml-2 text-xs text-neutral-500">/ adet</span>
+                </div>
+                <p className="mt-4 text-xs text-neutral-400">Sadece kayda odaklanmak isteyen sporcular için yalın ve sağlam gövde.</p>
+                <div className="mt-6 space-y-3 border-t border-neutral-900 pt-6 text-xs text-neutral-300">
+                  <div className="flex items-center"><CheckIcon /><span>Sabit geniş açı desteği</span></div>
+                  <div className="flex items-center"><CheckIcon /><span>Premium PETG malzeme</span></div>
+                  <div className="flex items-center"><CheckIcon /><span>Tüm telefonlarla uyum</span></div>
+                </div>
+              </div>
+              <a href={WHATSAPP_LINK} target="_blank" rel="noreferrer" className="mt-8 block w-full rounded-xl bg-neutral-900 py-3 text-center text-xs font-bold text-white hover:bg-neutral-800">
+                WhatsApp'tan Sipariş Ver
+              </a>
+            </div>
+
+            {/* Fiyat Kartı 2 (Öne Çıkan) */}
+            <div className="rounded-3xl border-2 border-padelLime bg-neutral-900/40 p-8 flex flex-col justify-between relative shadow-xl shadow-padelLime/5">
+              <div>
+                <h3 className="text-lg font-bold text-padelLime">Pro Adjustable</h3>
+                <div className="mt-4 flex items-baseline">
+                  <span className="text-5xl font-black text-white">₺899</span>
+                  <span className="ml-2 text-xs text-neutral-400">/ adet</span>
+                </div>
+                <p className="mt-4 text-xs text-neutral-300">Korttaki her açıyı milimetrik ayarlamak isteyen ileri düzey oyuncular için.</p>
+                <div className="mt-6 space-y-3 border-t border-neutral-800 pt-6 text-xs text-neutral-200">
+                  <div className="flex items-center"><CheckIcon /><span>İnce açı ayarlama vidası</span></div>
+                  <div className="flex items-center"><CheckIcon /><span>Ekstra sarsıntı önleyici katman</span></div>
+                  <div className="flex items-center"><CheckIcon /><span>Premium renk seçenekleri</span></div>
+                  <div className="flex items-center"><CheckIcon /><span>Hızlı kargo avantajı</span></div>
+                </div>
+              </div>
+              <a href={WHATSAPP_LINK} target="_blank" rel="noreferrer" className="mt-8 block w-full rounded-xl bg-padelLime py-3 text-center text-xs font-bold text-black hover:opacity-90">
+                Hemen Ön Sipariş Ver
+              </a>
+            </div>
+
+            {/* Fiyat Kartı 3 */}
+            <div className="rounded-3xl border border-neutral-900 bg-neutral-900/20 p-8 flex flex-col justify-between">
+              <div>
+                <h3 className="text-lg font-bold text-neutral-400">Club Edition</h3>
+                <div className="mt-4 flex items-baseline">
+                  <span className="text-3xl font-extrabold text-white">Teklif Alın</span>
+                </div>
+                <p className="mt-4 text-xs text-neutral-400">Kulüplere özel, logo baskılı ve kurumsal renk kombinasyonlu toplu sipariş paketi.</p>
+                <div className="mt-6 space-y-3 border-t border-neutral-900 pt-6 text-xs text-neutral-300">
+                  <div className="flex items-center"><CheckIcon /><span>Özel logo kabartması</span></div>
+                  <div className="flex items-center"><CheckIcon /><span>Kulüp renklerine özel filament</span></div>
+                  <div className="flex items-center"><CheckIcon /><span>Toplu alım indirimleri</span></div>
+                </div>
+              </div>
+              <a href="#kulubum-icin" className="mt-8 block w-full rounded-xl bg-neutral-900 py-3 text-center text-xs font-bold text-white hover:bg-neutral-800">
+                Kulübüm İçin Teklif Al
+              </a>
+            </div>
+
+          </div>
+        </section>
+
+        {/* HOW IT WORKS */}
+        <section className="bg-neutral-900/30 border-t border-b border-neutral-900 py-20 px-4 sm:px-6 lg:px-8">
+          <div className="mx-auto max-w-5xl text-center">
+            <span className="text-xs font-bold uppercase tracking-widest text-neutral-500">Pratik Kullanım</span>
+            <h2 className="mt-2 text-3xl font-extrabold tracking-tight sm:text-4xl">3 Saniyede Kayda Başla</h2>
+            
+            <div className="mt-12 grid grid-cols-1 gap-8 sm:grid-cols-3">
+              <div className="flex flex-col items-center">
+                <div className="flex h-12 w-12 items-center justify-center rounded-full bg-neutral-900 text-padelLime font-mono text-lg font-bold border border-neutral-800">1</div>
+                <h3 className="mt-4 text-base font-bold">Aparatı Fileye Yerleştir</h3>
+                <p className="mt-1 text-xs text-neutral-400 max-w-xs">Özel tırnaklı yapıyı kort filesinin üst bandına tek hamlede oturtun.</p>
+              </div>
+              <div className="flex flex-col items-center">
+                <div className="flex h-12 w-12 items-center justify-center rounded-full bg-neutral-900 text-padelLime font-mono text-lg font-bold border border-neutral-800">2</div>
+                <h3 className="mt-4 text-base font-bold">Telefonunu Sabitle</h3>
+                <p className="mt-1 text-xs text-neutral-400 max-w-xs">Telefonunuzu universal yuvaya yatay veya dikey olarak yerleştirin.</p>
+              </div>
+              <div className="flex flex-col items-center">
+                <div className="flex h-12 w-12 items-center justify-center rounded-full bg-neutral-900 text-padelLime font-mono text-lg font-bold border border-neutral-800">3</div>
+                <h3 className="mt-4 text-base font-bold">Maçını Kaydet</h3>
+                <p className="mt-1 text-xs text-neutral-400 max-w-xs">Kamerayı açın, kayda basın ve tripodsuz mükemmel açının keyfini çıkarın.</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* TESTIMONIALS */}
+        <section className="py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+          <div className="text-center mb-16">
+            <span className="text-xs font-bold uppercase tracking-widest text-neutral-500">Kullanıcı Yorumları</span>
+            <h2 className="mt-2 text-3xl font-extrabold tracking-tight sm:text-4xl">Oyuncular Ne Diyor?</h2>
+          </div>
+
+          <div className="grid grid-cols-1 gap-6 sm:grid-cols-3">
+            {[
+              { name: "Caner T.", role: "Padel Oyuncusu", comment: "Artık her antrenmanı rahatça çekiyorum. Açı tam olarak tüm kortu alıyor, geliştirirken çok faydalı oldu." },
+              { name: "Merve K.", role: "Tenis Antrenörü", comment: "Tripod taşımaya gerek kalmadı. Çantaya atıyorum, derse girerken fileye takıp öğrencilerimin gelişimini kaydediyorum." },
+              { name: "Ahmet S.", role: "Kulüp İşletmecisi", comment: "Kulübümüzde üyeler çok sevdi. Club Edition sürümünden aldık, herkes Instagram'da paylaşım yaparken bizim logomuz görünüyor." }
+            ].map((testi, idx) => (
+              <div key={idx} className="rounded-2xl border border-neutral-900 bg-neutral-900/10 p-6 flex flex-col justify-between">
+                <p className="text-sm italic text-neutral-300">"{testi.comment}"</p>
+                <div className="mt-6 border-t border-neutral-900 pt-4 flex items-center justify-between">
+                  <div>
+                    <div className="text-xs font-bold text-white">{testi.name}</div>
+                    <div className="text-[10px] text-neutral-500">{testi.role}</div>
+                  </div>
+                  <div className="flex space-x-0.5 text-padelLime">
+                    {[...Array(5)].map((_, i) => <Star key={i} size={10} className="fill-padelLime" />)}
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        {/* FAQ SECTION (SSS) */}
+        <section id="sss" className="py-20 px-4 sm:px-6 lg:px-8 max-w-3xl mx-auto border-t border-neutral-900">
+          <div className="text-center mb-12">
+            <span className="text-xs font-bold uppercase tracking-widest text-neutral-500">Destek</span>
+            <h2 className="mt-2 text-3xl font-extrabold tracking-tight sm:text-4xl">Sıkça Sorulan Sorular</h2>
+          </div>
+
+          <div className="space-y-4">
+            {faqData.map((item, index) => (
+              <div key={index} className="rounded-2xl border border-neutral-900 bg-neutral-900/10 overflow-hidden">
+                <button 
+                  className="flex w-full items-center justify-between px-6 py-4 text-left transition-colors hover:bg-neutral-900/40"
+                  onClick={() => toggleFaq(index)}
+                >
+                  <span className="text-sm font-semibold text-white">{item.q}</span>
+                  {activeFaq === index ? <ChevronUp size={16} className="text-padelLime" /> : <ChevronDown size={16} />}
+                </button>
+                {activeFaq === index && (
+                  <div className="px-6 pb-4 text-xs text-neutral-400 leading-relaxed border-t border-neutral-900/50 pt-3">
+                    {item.a}
+                  </div>
+                )}
+              </div>
+            ))}
+          </div>
+        </section>
+
+        {/* FINAL CTA SECTION */}
+        <section className="py-20 px-4 sm:px-6 lg:px-8 max-w-5xl mx-auto text-center relative">
+          <div className="absolute inset-0 bg-padelLime/5 blur-3xl -z-10 rounded-full"></div>
+          <h2 className="text-3xl font-extrabold tracking-tight sm:text-4xl lg:text-5xl">
+            Bir sonraki maçını <br /> kaydetmeye hazır mısın?
+          </h2>
+          <p className="mt-4 text-sm sm:text-base text-neutral-400 max-w-lg mx-auto">
+            Hemen sipariş verin, korttaki en iyi rallilerinizi ve performansınızı ölümsüzleştirin.
+          </p>
+
+          <div className="mt-8 flex flex-col justify-center space-y-3 sm:flex-row sm:space-y-0 sm:space-x-4">
+            <a 
+              href={WHATSAPP_LINK}
+              target="_blank"
+              rel="noreferrer"
+              className="flex items-center justify-center space-x-2 rounded-2xl bg-padelLime px-8 py-4 font-bold text-black transition-transform hover:scale-105"
+            >
+              <MessageCircle size={20} />
+              <span>WhatsApp’tan Sipariş Ver</span>
+            </a>
+            <a 
+              href={INSTAGRAM_LINK}
+              target="_blank"
+              rel="noreferrer"
+              className="flex items-center justify-center space-x-2 rounded-2xl border border-neutral-800 bg-neutral-900/60 px-8 py-4 font-semibold text-white backdrop-blur-sm transition-colors hover:bg-neutral-900 hover:border-neutral-700"
+            >
+              <Instagram size={18} />
+              <span>Instagram'da Gör</span>
+            </a>
+          </div>
+        </section>
+      </main>
+
+      {/* FOOTER SECTION */}
+      <footer className="border-t border-neutral-900 bg-black py-12 px-4 sm:px-6 lg:px-8">
+        <div className="mx-auto max-w-7xl grid grid-cols-1 md:grid-cols-3 gap-8 items-center text-center md:text-left">
+          <div>
+            <span className="text-lg font-black tracking-wider text-white">
+              <span className="text-padelLime">[</span>MARKA_ADI<span className="text-padelLime">]</span>
+            </span>
+            <p className="mt-2 text-xs text-neutral-500 max-w-xs mx-auto md:mx-0">
+              Padel ve tenis oyuncuları için özel geliştirilmiş endüstriyel 3D baskı fileye takılan telefon video kayıt aparatları.
+            </p>
+          </div>
+
+          {/* Sosyal Medya ve İletişim Bağlantıları */}
+          <div className="flex justify-center space-x-6">
+            <a href={INSTAGRAM_LINK} target="_blank" rel="noreferrer" className="text-neutral-500 hover:text-padelLime transition-colors">
+              <Instagram size={20} />
+            </a>
+            <a href={WHATSAPP_LINK} target="_blank" rel="noreferrer" className="text-neutral-500 hover:text-padelLime transition-colors">
+              <MessageCircle size={20} />
+            </a>
+          </div>
+
+          <div className="text-center md:text-right text-xs text-neutral-500 flex flex-col space-y-1">
+            <span>E-posta: <span className="text-neutral-400">info@markaadi.com</span></span>
+            <span>&copy; 2026 [MARKA_ADI]. Tüm Hakları Saklıdır.</span>
+          </div>
+        </div>
+      </footer>
+
+    </div>
+  );
+}
+
+// Yardımcı Küçük İkon Bileşeni (Fiyat tablosu için)
+function CheckIcon() {
+  return (
+    <span className="mr-2 inline-flex h-4 w-4 shrink-0 items-center justify-center rounded-full bg-padelLime/10 text-padelLime font-bold text-[10px]">
+      ✓
+    </span>
+  );
+}
